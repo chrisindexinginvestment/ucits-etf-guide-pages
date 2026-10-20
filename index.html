@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f5f7f4">
     <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與個人評分。">
     <title>全球 ETF 指南｜UCITS ETF 比較</title>
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261020">
+    <script src="./app.js?v=20261020" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -125,6 +125,7 @@
             <thead>
               <tr>
                 <th scope="col">基金 / 指數</th>
+                <th scope="col">收益處理</th>
                 <th scope="col">資產規模（USD）</th>
                 <th scope="col">IB bid / ask</th>
                 <th scope="col">計價 / 上市貨幣</th>
@@ -159,19 +160,31 @@
         <div class="method-list">
           <article>
             <span class="method-number">01</span>
-            <div><h3>全球不一定等於「所有公司」</h3><p>FTSE All-World 與 MSCI ACWI 主要覆蓋大型及中型公司；ACWI IMI 和 FTSE Global All Cap 亦納入小型公司。不同指數的成分股數目與權重會有差異。</p></div>
+            <div><h3>先看市場範圍與加權方式</h3><p>市值加權 ETF 按公司市值配置；全球、已發展市場、新興市場及 ex-USA ETF 的覆蓋範圍各有不同。留意指數是否包括小型公司，以及是否只涵蓋美國以外市場。</p></div>
           </article>
           <article>
             <span class="method-number">02</span>
-            <div><h3>TER 不是全部持有成本</h3><p>TER 是基金年度經常性費用指標。交易佣金、買賣差價、稅項及基金相對指數的表現差異，亦會影響實際結果。</p></div>
+            <div><h3>因子 ETF 不等於整體市場</h3><p>因子欄整理基金的預期曝險，例如價值、規模、盈利能力、投資、動能或低波動。Fama-French 因子是分析框架，標示曝險不代表基金一定跑贏市場。</p></div>
           </article>
           <article>
             <span class="method-number">03</span>
-            <div><h3>Spread 會隨市場變動</h3><p>bid/ask 受交易時段、流動性及市場狀況影響。本站顯示 IB Gateway 取得的快照，不代表全天平均或保證成交價；留意數據的時間及市場狀態。</p></div>
+            <div><h3>債券 ETF 要看存續期</h3><p>有效存續期可用來理解基金對利率變動的敏感度，並不等同債券或指數的到期年限。比較債券 ETF 時，亦要留意其貨幣、信用類別與投資年期範圍。</p></div>
           </article>
           <article>
             <span class="method-number">04</span>
-            <div><h3>追蹤誤差要看期間與算法</h3><p>追蹤誤差通常反映基金回報相對指數回報差異的波動程度，須同時查看計算期間和年化方式。不要把單一年度追蹤差異直接當作追蹤誤差。</p></div>
+            <div><h3>留意 SWAP 複製方式</h3><p>實物 ETF 持有相關證券；SWAP 式 ETF 透過掉期合約取得指數回報，並涉及交易對手及抵押品風險。比較時可先按複製方式篩選。</p></div>
+          </article>
+          <article>
+            <span class="method-number">05</span>
+            <div><h3>TER 與追蹤誤差是不同概念</h3><p>TER 是基金年度經常性費用指標；追蹤誤差則反映基金與指數回報差異的波動程度，須留意計算期間及算法。交易佣金、差價及稅項亦會影響實際成本。</p></div>
+          </article>
+          <article>
+            <span class="method-number">06</span>
+            <div><h3>每檔 bid / ask 都要看時間</h3><p>買賣差價會隨流動性及市場狀況變動，報價快照不代表全天平均或保證成交價。表格會顯示各 ETF 自己的報價時間；部分更新時，未更新標的會沿用原有快照。</p></div>
+          </article>
+          <article>
+            <span class="method-number">07</span>
+            <div><h3>累積型與派息型的收入處理不同</h3><p>累積型會把收入留在基金內再投資；派息型則按基金政策分派。派息金額和頻率並非保證，選擇應配合現金流需要及個人情況。</p></div>
           </article>
         </div>
       </section>
@@ -182,7 +195,7 @@
           <h2>數據有來源，<br>也有更新日期。</h2>
         </div>
         <div class="source-copy">
-          <p>基金基本資料與 TER 連結至來源頁供核對。規模以來源 EUR 資料按 FX 快照換算為 USD；來源未標明規模日期時會明確註記。報價數字以 USD 顯示，另列基金基礎貨幣及上市報價貨幣。追蹤誤差未填入未核實數字。</p>
+          <p>基金基本資料與 TER 連結至來源頁供核對。規模以來源 EUR 資料按 FX 快照換算為 USD；來源未標明規模日期時會明確註記。報價數字以 USD 顯示，另列基金基礎貨幣及上市報價貨幣。累積／派息類別以基金資料標示，未能核實時會列為待核實；追蹤誤差亦不填入未核實數字。</p>
           <p>基金規模會因匯率換算日不同而變化；本網站同時顯示換算匯率時間。LVWC 是每日 2 倍槓桿 ETF，已特別標註，不應與普通未槓桿 ETF 直接比較。SWAP 式 ETF 會以掉期合約取得指數回報，承受交易對手及抵押品相關風險。</p>
           <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄顯示有效存續期；如只取得指數到期範圍，會另行註明，兩者不可互換。</p>
           <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
@@ -194,6 +207,11 @@
     <footer class="site-footer">
       <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">G</span><span>全球 ETF 指南<span class="brand-subtitle">PERSONAL RESEARCH, SHARED CLEARLY</span></span></a>
       <p>資料只作教育及研究用途，不構成投資、稅務或法律建議。投資涉及風險，基金資料及報價可能延遲或有誤，請以基金公司及交易平台最新資訊為準。</p>
+      <div class="social-links" aria-label="社交媒體聯絡方式">
+        <span>聯絡</span>
+        <a href="https://www.threads.com/@chrisindexinginvestment" target="_blank" rel="noreferrer">Threads ↗</a>
+        <a href="https://www.instagram.com/chrisindexinginvestment/" target="_blank" rel="noreferrer">Instagram ↗</a>
+      </div>
       <a class="back-top" href="#top">返回頁首 ↑</a>
     </footer>
   </body>

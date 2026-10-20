@@ -100,6 +100,17 @@ const ratingMarkup = (etf, rating) => {
   return `<div class="rating" aria-label="${etf.ticker} 個人評分">${stars}<span class="rating-value">${valueLabel}</span></div>`;
 };
 
+const incomeTreatmentMarkup = (etf) => {
+  const incomeTreatment = etf.incomeTreatment || etf.name;
+  if (/(?:\bacc\b|accumulation|capitalisation|\b1c\b)/i.test(incomeTreatment)) {
+    return `<span class="data-main">累積型</span>`;
+  }
+  if (/(?:\bdist\b|distributing|distribution|\b1d\b)/i.test(incomeTreatment)) {
+    return `<span class="data-main">派息型</span>`;
+  }
+  return `<span class="pending">待核實</span>`;
+};
+
 const factorMarkup = (etf) => {
   const factors = (etf.factorTags || []).map((factor) =>
     `<span class="factor-pill">${FACTOR_LABELS[factor] || factor}</span>`,
@@ -170,6 +181,7 @@ const renderRows = (etfs, marketData) => {
       ? `<span class="warning-pill">SWAP 式</span>`
       : "";
     const replication = etf.replicationLabel || (etf.replicationType === "unknown" ? "待核實" : "實物複製");
+    const incomeTreatment = incomeTreatmentMarkup(etf);
 
     return `<tr>
       <td class="fund-cell">
@@ -178,6 +190,7 @@ const renderRows = (etfs, marketData) => {
           <span><strong>${fundName}</strong><span class="fund-meta">${etf.index}</span></span>
         </div>
       </td>
+      <td>${incomeTreatment}</td>
       <td><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}</span><span class="data-sub">${aum ? `資料：${etf.aumAsOf || "日期未有標示"}` : ""}</span></td>
       <td>${quoteMarkup(quote, marketData.updatedAt)}</td>
       <td><span class="data-main">${currencyDescription}</span><span class="data-sub">${listingCurrencyDescription}</span></td>
