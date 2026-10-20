@@ -106,7 +106,7 @@ const quoteMarkup = (quote, fallbackUpdatedAt) => {
   const quoteTimestamp = formatQuoteTime(quote.updatedAt || fallbackUpdatedAt);
   const quoteDate = quoteTimestamp ? `<span class="data-sub">報價：${quoteTimestamp}（香港時間）</span>` : "";
   const liquidity = quote.liquidityStatus === "low"
-    ? `<span class="liquidity-warning" title="IB 頂層 bid/ask 較小一側掛單金額約 ${formatMoney(quote.liquidityMinSideNotionalUsd, "USD", 2)}，低於 US$${LOW_LIQUIDITY_THRESHOLD_USD.toLocaleString()} 門檻"><span aria-hidden="true">⚠</span> IB 流動性偏低 <span class="data-sub">最小一邊 ${formatMoney(quote.liquidityMinSideNotionalUsd, "USD", 2)} · size 檢查 ${formatQuoteTime(quote.liquidityCheckedAt)}（香港時間）</span></span>`
+    ? `<span class="liquidity-warning" title="IB 頂層 bid/ask 較小一側掛單金額低於 US$${LOW_LIQUIDITY_THRESHOLD_USD.toLocaleString()} 門檻"><span aria-hidden="true">⚠</span> IB 流動性偏低</span>`
     : quote.liquidityCheckedAt && quote.liquidityStatus !== "adequate"
       ? `<span class="liquidity-unknown">IB 未提供完整 size，流動性待核實 <span class="data-sub">size 檢查 ${formatQuoteTime(quote.liquidityCheckedAt)}（香港時間）</span></span>`
       : "";
