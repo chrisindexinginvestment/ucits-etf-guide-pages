@@ -108,7 +108,7 @@ const factorMarkup = (etf) => {
   return factors || note ? `${factors}${note}` : `<span class="pending">不適用</span>`;
 };
 
-const quoteMarkup = (quote) => {
+const quoteMarkup = (quote, fallbackUpdatedAt) => {
   if (!quote || quote.bidUsd === null || quote.bidUsd === undefined || quote.askUsd === null || quote.askUsd === undefined) {
     const message = quote && quote.currency !== "USD" ? "等待 FX 換算" : "未有快照";
     return `<span class="pending">${message}</span>`;
@@ -118,7 +118,9 @@ const quoteMarkup = (quote) => {
   const spread = quote.spreadPct === null || quote.spreadPct === undefined || quote.spreadUsd === null
     ? ""
     : `<span class="spread-pill">差 ${formatMoney(quote.spreadUsd, "USD", 4)} · ${quote.spreadBps.toFixed(1)} bps · ${quote.spreadPct.toFixed(3)}%</span>`;
-  return `<span class="quote-values"><span>B ${bid}</span><span>A ${ask}</span></span>${spread}`;
+  const quoteTimestamp = formatQuoteTime(quote.updatedAt || fallbackUpdatedAt);
+  const quoteDate = quoteTimestamp ? `<span class="data-sub">報價：${quoteTimestamp}（香港時間）</span>` : "";
+  return `<span class="quote-values"><span>B ${bid}</span><span>A ${ask}</span></span>${spread}${quoteDate}`;
 };
 
 const renderRows = (etfs, marketData) => {
@@ -177,7 +179,7 @@ const renderRows = (etfs, marketData) => {
         </div>
       </td>
       <td><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}</span><span class="data-sub">${aum ? `資料：${etf.aumAsOf || "日期未有標示"}` : ""}</span></td>
-      <td>${quoteMarkup(quote)}</td>
+      <td>${quoteMarkup(quote, marketData.updatedAt)}</td>
       <td><span class="data-main">${currencyDescription}</span><span class="data-sub">${listingCurrencyDescription}</span></td>
       <td><span class="market-main">${etf.marketScope}</span></td>
       <td class="duration-cell">${duration}</td>
@@ -212,12 +214,19 @@ const renderQuoteStatus = (marketData) => {
     quoteStatusElement.textContent = "尚未匯入 IB Gateway 報價";
     quoteUpdatedElement.textContent = "尚未匯入 IB 報價";
   } else {
-    const dataType = marketData.marketDataTypeLabel || "IB 快照";
     const failureCount = Object.keys(marketData.errors || {}).length + Object.keys(marketData.fxErrors || {}).length;
     const quoteCount = Object.keys(marketData.quotes || {}).length;
-    quoteStatusElement.textContent = `${dataType} · ${failureCount ? `${failureCount} 項未成功` : `${quoteCount} 個報價已更新`}`;
     quoteUpdatedElement.textContent = `${timestamp}（香港時間）`;
     document.querySelector(".live-indicator").classList.toggle("is-live", !failureCount && marketData.marketDataType === 1);
+    if (marketData.partialUpdatedAt) {
+      const partialTime = formatQuoteTime(marketData.partialUpdatedAt);
+      const updatedTickers = (marketData.partialTickers || []).join("、");
+      const dataType = marketData.partialMarketDataTypeLabel || marketData.marketDataTypeLabel || "IB 快照";
+      quoteStatusElement.textContent = `${dataType} · ${updatedTickers} 已更新（${partialTime}，香港時間）；其他標的沿用原快照${failureCount ? ` · ${failureCount} 項報價未成功` : ""}`;
+    } else {
+      const dataType = marketData.marketDataTypeLabel || "IB 快照";
+      quoteStatusElement.textContent = `${dataType} · ${failureCount ? `${failureCount} 項未成功` : `${quoteCount} 個報價已更新`}`;
+    }
   }
   const fxTimestamp = formatQuoteTime(marketData.fxUpdatedAt || marketData.updatedAt);
   const fxDateElement = document.querySelector("#fx-updated");

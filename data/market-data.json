@@ -672,11 +672,66 @@
       "spreadUsd": 0.03999999999999204,
       "fxRateToUsd": 1.0,
       "preferredExchange": "LSE"
+    },
+    "CBU3": {
+      "bid": 125.88,
+      "ask": 125.95,
+      "spread": 0.07000000000000739,
+      "spreadPct": 0.05559305880952022,
+      "spreadBps": 5.559305880952023,
+      "currency": "USD",
+      "exchange": "SMART",
+      "marketDataType": 1,
+      "bidUsd": 125.88,
+      "askUsd": 125.95,
+      "spreadUsd": 0.07000000000000739,
+      "fxRateToUsd": 1.0,
+      "preferredExchange": "LSE",
+      "ibSymbol": "CSBGU3",
+      "updatedAt": "2026-10-20T13:27:47+00:00"
+    },
+    "CBU7": {
+      "bid": 140.85,
+      "ask": 140.96,
+      "spread": 0.11000000000001364,
+      "spreadPct": 0.07806678258402018,
+      "spreadBps": 7.806678258402019,
+      "currency": "USD",
+      "exchange": "SMART",
+      "marketDataType": 1,
+      "bidUsd": 140.85,
+      "askUsd": 140.96,
+      "spreadUsd": 0.11000000000001364,
+      "fxRateToUsd": 1.0,
+      "preferredExchange": "LSE",
+      "ibSymbol": "CSBGU7",
+      "updatedAt": "2026-10-20T13:27:48+00:00"
+    },
+    "CBU0": {
+      "bid": 149.645,
+      "ask": 149.73,
+      "spread": 0.08499999999997954,
+      "spreadPct": 0.056784968684746244,
+      "spreadBps": 5.678496868474624,
+      "currency": "USD",
+      "exchange": "SMART",
+      "marketDataType": 1,
+      "bidUsd": 149.645,
+      "askUsd": 149.73,
+      "spreadUsd": 0.08499999999997954,
+      "fxRateToUsd": 1.0,
+      "preferredExchange": "LSE",
+      "ibSymbol": "CSBGU0",
+      "updatedAt": "2026-10-20T13:27:47+00:00"
     }
   },
-  "errors": {
-    "CBU0": "IB 無法確認 CBU0 合約。請核對代號、交易所及報價貨幣設定。",
-    "CBU3": "IB 無法確認 CBU3 合約。請核對代號、交易所及報價貨幣設定。",
-    "CBU7": "IB 無法確認 CBU7 合約。請核對代號、交易所及報價貨幣設定。"
-  }
+  "errors": {},
+  "partialUpdatedAt": "2026-10-20T13:27:48+00:00",
+  "partialTickers": [
+    "CBU0",
+    "CBU3",
+    "CBU7"
+  ],
+  "partialMarketDataType": 1,
+  "partialMarketDataTypeLabel": "即時報價"
 }
