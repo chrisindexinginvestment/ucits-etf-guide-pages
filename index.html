@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f5f7f4">
     <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與個人評分。">
     <title>全球 ETF 指南｜UCITS ETF 比較</title>
-    <link rel="stylesheet" href="./styles.css?v=20261020-2151">
+    <link rel="stylesheet" href="./styles.css?v=20261020-2214">
     <script src="./app.js?v=20261020-2212" defer></script>
   </head>
   <body>
@@ -26,44 +26,6 @@
       </div>
       <a class="header-link" href="#compare">開始比較 <span aria-hidden="true">↘</span></a>
     </header>
-
-    <section class="hk-investor-notes" id="hk-investors" aria-labelledby="hk-investor-title">
-      <div class="hk-investor-inner">
-        <div class="hk-investor-heading">
-          <div>
-            <p class="eyebrow">FOR HONG KONG INVESTORS</p>
-            <h2 id="hk-investor-title">香港投資者看 UCITS ETF</h2>
-          </div>
-          <p>選擇基金時，可一併了解基金註冊地、股息預扣稅、遺產稅及交易渠道；不同基金和個人情況可能有不同結果。</p>
-        </div>
-        <div class="hk-investor-cards">
-          <article class="hk-investor-card">
-            <h3>美股股息預扣稅</h3>
-            <p>美國來源股息向非美國人士支付時，通常以 30% 作為預扣基準，適用稅務協定可降低稅率。部分愛爾蘭註冊 UCITS 持有美股時，基金層面或可按美愛稅務協定使用較低稅率（常見為 15%）；預扣稅由基金承擔並反映於資產淨值，並不代表投資者個人派息免稅。</p>
-            <div class="hk-source-links">
-              <a href="https://www.irs.gov/individuals/international-taxpayers/nra-withholding" target="_blank" rel="noreferrer">IRS：非居民預扣稅 ↗</a>
-              <a href="https://www.irs.gov/businesses/international-businesses/ireland-tax-treaty-documents" target="_blank" rel="noreferrer">美愛稅務協定 ↗</a>
-            </div>
-          </article>
-          <article class="hk-investor-card">
-            <h3>香港遺產稅與美國遺產稅</h3>
-            <p>香港已取消遺產稅（適用於 2006 年 2 月 11 日或之後的死亡個案）；但這不會自動排除美國遺產稅。美國 IRS 指出，非美國公民／居民的美國所在地資產可能需要申報；Form 706-NA 的一般申報門檻為 US$60,000，這不是簡單的免稅額。基金註冊地會影響資產所在地分析，應按個人情況核實。</p>
-            <div class="hk-source-links">
-              <a href="https://www.ird.gov.hk/eng/tax/edu.htm" target="_blank" rel="noreferrer">香港稅務局：取消遺產稅 ↗</a>
-              <a href="https://www.irs.gov/businesses/small-businesses-self-employed/estate-tax-for-nonresidents-not-citizens-of-the-united-states" target="_blank" rel="noreferrer">IRS：非居民遺產稅 ↗</a>
-            </div>
-          </article>
-          <article class="hk-investor-card">
-            <h3>透過 IBKR 搜尋及交易</h3>
-            <p>香港投資者可在 IBKR 平台搜尋 UCITS ETF，並查看可用交易所及報價貨幣。能否交易特定基金，仍取決於帳戶所屬實體、交易權限、產品限制及當地規定；下單前請在 TWS 或 Client Portal 以代號／ISIN 核對。</p>
-            <div class="hk-source-links">
-              <a href="https://www.interactivebrokers.com/en/trading/products-exchanges.php" target="_blank" rel="noreferrer">IBKR：交易所及產品 ↗</a>
-            </div>
-          </article>
-        </div>
-        <p class="hk-investor-caveat">一般教育資訊，不構成稅務、法律或投資建議。基金所在地、投資者稅務居民身份、協定資格、持倉結構及法規變動均可能影響實際結果；投資前請核對基金文件及諮詢合資格專業人士。</p>
-      </div>
-    </section>
 
     <main id="top">
       <section class="hero">
@@ -89,6 +51,41 @@
           <span class="art-label label-top">DEVELOPED + EMERGING</span>
           <span class="art-label label-bottom">ONE WORLD · MANY MARKETS</span>
         </div>
+        <section class="hk-investor-panel" id="hk-investors" aria-labelledby="hk-investor-title">
+          <div class="hk-investor-heading">
+            <div>
+              <p class="eyebrow">FOR HONG KONG INVESTORS</p>
+              <h2 id="hk-investor-title">香港投資者看 UCITS ETF</h2>
+            </div>
+            <p>選擇基金時，可一併了解基金註冊地、股息預扣稅、遺產稅及交易渠道；不同基金和個人情況可能有不同結果。</p>
+          </div>
+          <div class="hk-investor-cards">
+            <article class="hk-investor-card">
+              <h3>美股股息預扣稅</h3>
+              <p>美國來源股息向非美國人士支付時，通常以 30% 作為預扣基準，適用稅務協定可降低稅率。部分愛爾蘭註冊 UCITS 持有美股時，基金層面或可按美愛稅務協定使用較低稅率（常見為 15%）；預扣稅由基金承擔並反映於資產淨值，並不代表投資者個人派息免稅。</p>
+              <div class="hk-source-links">
+                <a href="https://www.irs.gov/individuals/international-taxpayers/nra-withholding" target="_blank" rel="noreferrer">IRS：非居民預扣稅 ↗</a>
+                <a href="https://www.irs.gov/businesses/international-businesses/ireland-tax-treaty-documents" target="_blank" rel="noreferrer">美愛稅務協定 ↗</a>
+              </div>
+            </article>
+            <article class="hk-investor-card">
+              <h3>香港遺產稅與美國遺產稅</h3>
+              <p>香港已取消遺產稅（適用於 2006 年 2 月 11 日或之後的死亡個案）；但這不會自動排除美國遺產稅。美國 IRS 指出，非美國公民／居民的美國所在地資產可能需要申報；Form 706-NA 的一般申報門檻為 US$60,000，這不是簡單的免稅額。基金註冊地會影響資產所在地分析，應按個人情況核實。</p>
+              <div class="hk-source-links">
+                <a href="https://www.ird.gov.hk/eng/tax/edu.htm" target="_blank" rel="noreferrer">香港稅務局：取消遺產稅 ↗</a>
+                <a href="https://www.irs.gov/businesses/small-businesses-self-employed/estate-tax-for-nonresidents-not-citizens-of-the-united-states" target="_blank" rel="noreferrer">IRS：非居民遺產稅 ↗</a>
+              </div>
+            </article>
+            <article class="hk-investor-card">
+              <h3>透過 IBKR 搜尋及交易</h3>
+              <p>香港投資者可在 IBKR 平台搜尋 UCITS ETF，並查看可用交易所及報價貨幣。能否交易特定基金，仍取決於帳戶所屬實體、交易權限、產品限制及當地規定；下單前請在 TWS 或 Client Portal 以代號／ISIN 核對。</p>
+              <div class="hk-source-links">
+                <a href="https://www.interactivebrokers.com/en/trading/products-exchanges.php" target="_blank" rel="noreferrer">IBKR：交易所及產品 ↗</a>
+              </div>
+            </article>
+          </div>
+          <p class="hk-investor-caveat">一般教育資訊，不構成稅務、法律或投資建議。基金所在地、投資者稅務居民身份、協定資格、持倉結構及法規變動均可能影響實際結果；投資前請核對基金文件及諮詢合資格專業人士。</p>
+        </section>
         <div class="hero-bottom">
           <span>從大中小型公司，到成熟及新興市場</span>
           <span class="hero-bottom-right">資料最後整理 <strong id="data-date">—</strong></span>
