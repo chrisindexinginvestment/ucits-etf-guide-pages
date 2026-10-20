@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f5f7f4">
     <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與個人評分。">
     <title>全球 ETF 指南｜UCITS ETF 比較</title>
-    <link rel="stylesheet" href="./styles.css?v=20261020">
-    <script src="./app.js?v=20261020" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261020-2151">
+    <script src="./app.js?v=20261020-2151" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -20,15 +20,57 @@
         <a href="#method">閱讀指引</a>
         <a href="#sources">資料來源</a>
       </nav>
+      <div class="header-social-links" aria-label="社交媒體聯絡方式">
+        <a href="https://www.threads.com/@chrisindexinginvestment" target="_blank" rel="noreferrer">Threads ↗</a>
+        <a href="https://www.instagram.com/chrisindexinginvestment/" target="_blank" rel="noreferrer">Instagram ↗</a>
+      </div>
       <a class="header-link" href="#compare">開始比較 <span aria-hidden="true">↘</span></a>
     </header>
+
+    <section class="hk-investor-notes" id="hk-investors" aria-labelledby="hk-investor-title">
+      <div class="hk-investor-inner">
+        <div class="hk-investor-heading">
+          <div>
+            <p class="eyebrow">FOR HONG KONG INVESTORS</p>
+            <h2 id="hk-investor-title">香港投資者看 UCITS ETF</h2>
+          </div>
+          <p>選擇基金時，可一併了解基金註冊地、股息預扣稅、遺產稅及交易渠道；不同基金和個人情況可能有不同結果。</p>
+        </div>
+        <div class="hk-investor-cards">
+          <article class="hk-investor-card">
+            <h3>美股股息預扣稅</h3>
+            <p>美國來源股息向非美國人士支付時，通常以 30% 作為預扣基準，適用稅務協定可降低稅率。部分愛爾蘭註冊 UCITS 持有美股時，基金層面或可按美愛稅務協定使用較低稅率（常見為 15%）；預扣稅由基金承擔並反映於資產淨值，並不代表投資者個人派息免稅。</p>
+            <div class="hk-source-links">
+              <a href="https://www.irs.gov/individuals/international-taxpayers/nra-withholding" target="_blank" rel="noreferrer">IRS：非居民預扣稅 ↗</a>
+              <a href="https://www.irs.gov/businesses/international-businesses/ireland-tax-treaty-documents" target="_blank" rel="noreferrer">美愛稅務協定 ↗</a>
+            </div>
+          </article>
+          <article class="hk-investor-card">
+            <h3>香港遺產稅與美國遺產稅</h3>
+            <p>香港已取消遺產稅（適用於 2006 年 2 月 11 日或之後的死亡個案）；但這不會自動排除美國遺產稅。美國 IRS 指出，非美國公民／居民的美國所在地資產可能需要申報；Form 706-NA 的一般申報門檻為 US$60,000，這不是簡單的免稅額。基金註冊地會影響資產所在地分析，應按個人情況核實。</p>
+            <div class="hk-source-links">
+              <a href="https://www.ird.gov.hk/eng/tax/edu.htm" target="_blank" rel="noreferrer">香港稅務局：取消遺產稅 ↗</a>
+              <a href="https://www.irs.gov/businesses/small-businesses-self-employed/estate-tax-for-nonresidents-not-citizens-of-the-united-states" target="_blank" rel="noreferrer">IRS：非居民遺產稅 ↗</a>
+            </div>
+          </article>
+          <article class="hk-investor-card">
+            <h3>透過 IBKR 搜尋及交易</h3>
+            <p>香港投資者可在 IBKR 平台搜尋 UCITS ETF，並查看可用交易所及報價貨幣。能否交易特定基金，仍取決於帳戶所屬實體、交易權限、產品限制及當地規定；下單前請在 TWS 或 Client Portal 以代號／ISIN 核對。</p>
+            <div class="hk-source-links">
+              <a href="https://www.interactivebrokers.com/en/trading/products-exchanges.php" target="_blank" rel="noreferrer">IBKR：交易所及產品 ↗</a>
+            </div>
+          </article>
+        </div>
+        <p class="hk-investor-caveat">一般教育資訊，不構成稅務、法律或投資建議。基金所在地、投資者稅務居民身份、協定資格、持倉結構及法規變動均可能影響實際結果；投資前請核對基金文件及諮詢合資格專業人士。</p>
+      </div>
+    </section>
 
     <main id="top">
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow"><span class="eyebrow-dot"></span> GLOBAL MARKETS · UCITS</p>
           <h1>全球投資，<br><em>由一隻 ETF 開始。</em></h1>
-          <p class="hero-intro">用清楚、可核對的資料，認識全球股票及債券 UCITS ETF。比較市場、成本、交易價差與債券年期，再加入你自己的觀點。</p>
+          <p class="hero-intro">用清楚、可核對的資料，認識全球股票及債券 UCITS ETF。按市場、成本、交易價差與基金特色，瀏覽可篩選的比較清單。</p>
           <a class="button button-dark" href="#compare">瀏覽 ETF 清單 <span aria-hidden="true">↓</span></a>
           <p class="hero-note">獨立整理 · 不構成投資建議</p>
         </div>
@@ -57,7 +99,7 @@
         <div><span class="strip-index">01</span><span><strong>市場覆蓋</strong><small>追蹤指數包括甚麼？</small></span></div>
         <div><span class="strip-index">02</span><span><strong>持有成本</strong><small>TER 是成本的一部分</small></span></div>
         <div><span class="strip-index">03</span><span><strong>交易品質</strong><small>比較實際 bid / ask</small></span></div>
-        <div><span class="strip-index">04</span><span><strong>你的選擇</strong><small>留下個人評分與想法</small></span></div>
+        <div><span class="strip-index">04</span><span><strong>收益處理</strong><small>累積型或派息型</small></span></div>
       </section>
 
       <section class="comparison section-shell" id="compare">
@@ -198,7 +240,7 @@
           <p>基金基本資料與 TER 連結至來源頁供核對。規模以來源 EUR 資料按 FX 快照換算為 USD；來源未標明規模日期時會明確註記。報價數字以 USD 顯示，另列基金基礎貨幣及上市報價貨幣。累積／派息類別以基金資料標示，未能核實時會列為待核實；追蹤誤差亦不填入未核實數字。</p>
           <p>基金規模會因匯率換算日不同而變化；本網站同時顯示換算匯率時間。LVWC 是每日 2 倍槓桿 ETF，已特別標註，不應與普通未槓桿 ETF 直接比較。SWAP 式 ETF 會以掉期合約取得指數回報，承受交易對手及抵押品相關風險。</p>
           <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄顯示有效存續期；如只取得指數到期範圍，會另行註明，兩者不可互換。</p>
-          <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
+          <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；頁面按 bid/ask 較小一邊的掛單金額低於 US$10,000 標示流動性偏低，IB 未提供 size 時則列為待核實。更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
           <div class="source-links" id="source-links"></div>
         </div>
       </section>
@@ -207,11 +249,6 @@
     <footer class="site-footer">
       <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">G</span><span>全球 ETF 指南<span class="brand-subtitle">PERSONAL RESEARCH, SHARED CLEARLY</span></span></a>
       <p>資料只作教育及研究用途，不構成投資、稅務或法律建議。投資涉及風險，基金資料及報價可能延遲或有誤，請以基金公司及交易平台最新資訊為準。</p>
-      <div class="social-links" aria-label="社交媒體聯絡方式">
-        <span>聯絡</span>
-        <a href="https://www.threads.com/@chrisindexinginvestment" target="_blank" rel="noreferrer">Threads ↗</a>
-        <a href="https://www.instagram.com/chrisindexinginvestment/" target="_blank" rel="noreferrer">Instagram ↗</a>
-      </div>
       <a class="back-top" href="#top">返回頁首 ↑</a>
     </footer>
   </body>

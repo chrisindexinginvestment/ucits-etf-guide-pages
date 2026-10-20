@@ -39,7 +39,14 @@
       "askUsd": 4.8920913225,
       "spreadUsd": 0.002674370000000299,
       "fxRateToUsd": 1.3371849999999998,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 154723.0,
+      "askSize": 150817.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 740047.2401922999,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:13+00:00",
+      "liquidityMarketDataType": 3
     },
     "VWRA": {
       "bid": 189.88,
@@ -54,7 +61,14 @@
       "askUsd": 189.9,
       "spreadUsd": 0.020000000000010232,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 39.0,
+      "askSize": 5094.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 7427.9400000000005,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:14+00:00",
+      "liquidityMarketDataType": 3
     },
     "IMID": {
       "bid": 13.055,
@@ -69,7 +83,14 @@
       "askUsd": 13.06,
       "spreadUsd": 0.005000000000000782,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 72131.0,
+      "askSize": 52373.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 686348.165,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:15+00:00",
+      "liquidityMarketDataType": 3
     },
     "ACWD": {
       "bid": 323.32,
@@ -84,7 +105,14 @@
       "askUsd": 323.4,
       "spreadUsd": 0.07999999999998408,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 4.0,
+      "askSize": 394.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 1297.2,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:16+00:00",
+      "liquidityMarketDataType": 3
     },
     "SWRD": {
       "bid": 53.2,
@@ -99,7 +127,14 @@
       "askUsd": 53.22,
       "spreadUsd": 0.01999999999999602,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 2039.0,
+      "askSize": 11195.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 108760.26000000001,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:17+00:00",
+      "liquidityMarketDataType": 3
     },
     "SWDA": {
       "bid": 108.76,
@@ -115,7 +150,14 @@
       "spreadUsd": 0.08023109999999999,
       "fxRateToUsd": 1.3371849999999998,
       "sourceQuoteUnit": "GBp（以便士報價）",
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 1703.0,
+      "askSize": 4036.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 248346.15893359997,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:18+00:00",
+      "liquidityMarketDataType": 3
     },
     "VWRD": {
       "bid": 183.4,
@@ -130,7 +172,14 @@
       "askUsd": 183.55,
       "spreadUsd": 0.15000000000000568,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 476.0,
+      "askSize": 2053.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 87569.72,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:19+00:00",
+      "liquidityMarketDataType": 3
     },
     "IWDA": {
       "bid": 145.47,
@@ -145,7 +194,14 @@
       "askUsd": 145.49,
       "spreadUsd": 0.020000000000010232,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 1973.0,
+      "askSize": 1858.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 271082.2,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:20+00:00",
+      "liquidityMarketDataType": 3
     },
     "LVWC": {
       "bid": 5.498,
@@ -160,7 +216,14 @@
       "askUsd": 6.17761277,
       "spreadUsd": 0.0056129499999998805,
       "fxRateToUsd": 1.12259,
-      "preferredExchange": "IBIS"
+      "preferredExchange": "IBIS",
+      "bidSize": 23848.0,
+      "askSize": 20834.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 129548.27541216,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:20+00:00",
+      "liquidityMarketDataType": 1
     },
     "EIMI": {
       "bid": 51.47,
@@ -175,7 +238,14 @@
       "askUsd": 51.48,
       "spreadUsd": 0.00999999999999801,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 1018.0,
+      "askSize": 3195.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 52671.32,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:21+00:00",
+      "liquidityMarketDataType": 3
     },
     "SPYL": {
       "bid": 18.986,
@@ -190,7 +260,14 @@
       "askUsd": 19.036,
       "spreadUsd": 0.05000000000000071,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 39543.0,
+      "askSize": 6535.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 124361.05,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:22+00:00",
+      "liquidityMarketDataType": 3
     },
     "CSPX": {
       "bid": 827.18,
@@ -205,7 +282,14 @@
       "askUsd": 827.34,
       "spreadUsd": 0.16000000000008185,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 763.0,
+      "askSize": 88.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 72947.6,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:23+00:00",
+      "liquidityMarketDataType": 3
     },
     "EXUS": {
       "bid": 44.855,
@@ -220,7 +304,14 @@
       "askUsd": 44.88,
       "spreadUsd": 0.025000000000005684,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 16490.0,
+      "askSize": 8810.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 397198.85000000003,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:24+00:00",
+      "liquidityMarketDataType": 3
     },
     "XUSE": {
       "bid": 5.225,
@@ -235,7 +326,14 @@
       "askUsd": 7.018884064999999,
       "spreadUsd": 0.03209244000000003,
       "fxRateToUsd": 1.3371849999999998,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 91790.0,
+      "askSize": 44701.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 314203.999515,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:25+00:00",
+      "liquidityMarketDataType": 3
     },
     "AVGS": {
       "bid": 28.23,
@@ -250,7 +348,14 @@
       "askUsd": 28.265,
       "spreadUsd": 0.03500000000000014,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 3142.0,
+      "askSize": 4924.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 89217.09,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:26+00:00",
+      "liquidityMarketDataType": 3
     },
     "ZPRX": {
       "bid": 68.99,
@@ -265,7 +370,14 @@
       "askUsd": 77.4811618,
       "spreadUsd": 0.033677700000001275,
       "fxRateToUsd": 1.12259,
-      "preferredExchange": "IBIS"
+      "preferredExchange": "IBIS",
+      "bidSize": 867.0,
+      "askSize": 867.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 67408.3329741,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:27+00:00",
+      "liquidityMarketDataType": 1
     },
     "ZPRV": {
       "bid": 80.25,
@@ -280,7 +392,14 @@
       "askUsd": 90.13275110000001,
       "spreadUsd": 0.04490360000000702,
       "fxRateToUsd": 1.12259,
-      "preferredExchange": "IBIS"
+      "preferredExchange": "IBIS",
+      "bidSize": 868.0,
+      "askSize": 868.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 78639.5170092,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:28+00:00",
+      "liquidityMarketDataType": 1
     },
     "MVOL": {
       "bid": 78.59,
@@ -295,7 +414,14 @@
       "askUsd": 78.65,
       "spreadUsd": 0.060000000000002274,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 579.0,
+      "askSize": 1751.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 45758.37,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:29+00:00",
+      "liquidityMarketDataType": 3
     },
     "JPGL": {
       "bid": 52.09,
@@ -310,7 +436,14 @@
       "askUsd": 52.24,
       "spreadUsd": 0.14999999999999858,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 2259.0,
+      "askSize": 1880.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 98822.2,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:30+00:00",
+      "liquidityMarketDataType": 3
     },
     "FWRA": {
       "bid": 9.355,
@@ -325,7 +458,14 @@
       "askUsd": 9.364,
       "spreadUsd": 0.009000000000000341,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 25642.0,
+      "askSize": 22650.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 212706.15,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:31+00:00",
+      "liquidityMarketDataType": 3
     },
     "ISAC": {
       "bid": 121.69,
@@ -340,7 +480,14 @@
       "askUsd": 121.72,
       "spreadUsd": 0.030000000000001137,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 19.0,
+      "askSize": 2020.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 2319.14,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:32+00:00",
+      "liquidityMarketDataType": 3
     },
     "ESAN": {
       "bid": 12.1305,
@@ -355,7 +502,14 @@
       "askUsd": 13.620945765,
       "spreadUsd": 0.0033677700000001275,
       "fxRateToUsd": 1.12259,
-      "preferredExchange": "IBIS"
+      "preferredExchange": "IBIS",
+      "bidSize": 823.0,
+      "askSize": 822.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 11234.965900005001,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:33+00:00",
+      "liquidityMarketDataType": 1
     },
     "MXUS": {
       "bid": 225.0,
@@ -370,7 +524,14 @@
       "askUsd": 226.78,
       "spreadUsd": 1.7800000000000011,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 1090.0,
+      "askSize": 3171.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 246459.90000000002,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:34+00:00",
+      "liquidityMarketDataType": 3
     },
     "SPXS": {
       "bid": 15.41,
@@ -385,7 +546,14 @@
       "askUsd": 15.416,
       "spreadUsd": 0.006000000000000227,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 40507.0,
+      "askSize": 14220.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 219670.56,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:35+00:00",
+      "liquidityMarketDataType": 3
     },
     "VUAA": {
       "bid": 148.34,
@@ -400,7 +568,14 @@
       "askUsd": 148.36,
       "spreadUsd": 0.020000000000010232,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 675.0,
+      "askSize": 1443.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 100331.99999999999,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:36+00:00",
+      "liquidityMarketDataType": 3
     },
     "IWMO": {
       "bid": 110.85,
@@ -415,7 +590,14 @@
       "askUsd": 110.93,
       "spreadUsd": 0.0800000000000125,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 5.0,
+      "askSize": 2335.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 554.75,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:37+00:00",
+      "liquidityMarketDataType": 3
     },
     "XDEM": {
       "bid": 69.76,
@@ -431,7 +613,14 @@
       "spreadUsd": 0.06685925,
       "fxRateToUsd": 1.3371849999999998,
       "sourceQuoteUnit": "GBp（以便士報價）",
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 25.0,
+      "askSize": 25.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 2333.9676950000003,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:38+00:00",
+      "liquidityMarketDataType": 3
     },
     "WMSE": {
       "bid": 12.6,
@@ -446,7 +635,14 @@
       "askUsd": 14.15810508,
       "spreadUsd": 0.01347108000000051,
       "fxRateToUsd": 1.12259,
-      "preferredExchange": "IBIS"
+      "preferredExchange": "IBIS",
+      "bidSize": 792.0,
+      "askSize": 791.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 11237.28084612,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:38+00:00",
+      "liquidityMarketDataType": 1
     },
     "IFSW": {
       "bid": 16.335,
@@ -461,7 +657,14 @@
       "askUsd": 16.355,
       "spreadUsd": 0.019999999999999574,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 2496.0,
+      "askSize": 6080.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 40872.0,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:40+00:00",
+      "liquidityMarketDataType": 3
     },
     "WSML": {
       "bid": 10.03,
@@ -476,7 +679,14 @@
       "askUsd": 10.038,
       "spreadUsd": 0.008000000000000895,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 26214.0,
+      "askSize": 20263.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 204534.72199999998,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:41+00:00",
+      "liquidityMarketDataType": 3
     },
     "EMVL": {
       "bid": 95.7,
@@ -491,7 +701,14 @@
       "askUsd": 95.86,
       "spreadUsd": 0.1599999999999966,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 526.0,
+      "askSize": 526.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 50606.46,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:42+00:00",
+      "liquidityMarketDataType": 3
     },
     "LEMA": {
       "bid": 80.84,
@@ -506,7 +723,14 @@
       "askUsd": 80.97,
       "spreadUsd": 0.12999999999999545,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 414.0,
+      "askSize": 6544.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 33678.899999999994,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:42+00:00",
+      "liquidityMarketDataType": 1
     },
     "IWVL": {
       "bid": 77.9,
@@ -521,7 +745,14 @@
       "askUsd": 77.99,
       "spreadUsd": 0.0899999999999892,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 2361.0,
+      "askSize": 630.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 49480.200000000004,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:43+00:00",
+      "liquidityMarketDataType": 3
     },
     "WEXU": {
       "bid": 10.148,
@@ -536,7 +767,14 @@
       "askUsd": 13.633938259999997,
       "spreadUsd": 0.06418488000000006,
       "fxRateToUsd": 1.3371849999999998,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 452.0,
+      "askSize": 7732.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 6172.680144,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:44+00:00",
+      "liquidityMarketDataType": 3
     },
     "AGGU": {
       "bid": 5.766,
@@ -551,7 +789,14 @@
       "askUsd": 5.768,
       "spreadUsd": 0.0019999999999997797,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 18620.0,
+      "askSize": 8595.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 49593.149999999994,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:48+00:00",
+      "liquidityMarketDataType": 3
     },
     "AGGG": {
       "bid": 4.2345,
@@ -566,7 +811,14 @@
       "askUsd": 4.237,
       "spreadUsd": 0.002500000000000391,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 5783.0,
+      "askSize": 1944.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 8238.672,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:49+00:00",
+      "liquidityMarketDataType": 3
     },
     "AGAC": {
       "bid": 5.364,
@@ -581,7 +833,14 @@
       "askUsd": 5.367,
       "spreadUsd": 0.0030000000000001137,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "AEB"
+      "preferredExchange": "AEB",
+      "bidSize": 25439.0,
+      "askSize": 1055.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 5662.185,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:50+00:00",
+      "liquidityMarketDataType": 3
     },
     "IGLA": {
       "bid": 4.5825,
@@ -596,7 +855,14 @@
       "askUsd": 4.5905,
       "spreadUsd": 0.008000000000000007,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 132553.0,
+      "askSize": 2092.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 9594.958,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:51+00:00",
+      "liquidityMarketDataType": 3
     },
     "VAGU": {
       "bid": 26.575,
@@ -611,7 +877,14 @@
       "askUsd": 26.605,
       "spreadUsd": 0.030000000000001137,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 116.0,
+      "askSize": 322.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 3082.12,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:52+00:00",
+      "liquidityMarketDataType": 3
     },
     "VDTA": {
       "bid": 26.766,
@@ -626,7 +899,14 @@
       "askUsd": 26.779,
       "spreadUsd": 0.013000000000001677,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 1068.0,
+      "askSize": 13485.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 28571.136,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:53+00:00",
+      "liquidityMarketDataType": 3
     },
     "VDST": {
       "bid": 59.78,
@@ -641,7 +921,14 @@
       "askUsd": 59.796,
       "spreadUsd": 0.015999999999998238,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 26.0,
+      "askSize": 145.0,
+      "liquidityStatus": "low",
+      "liquidityMinSideNotionalUsd": 1554.5140000000001,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:54+00:00",
+      "liquidityMarketDataType": 3
     },
     "IB01": {
       "bid": 122.24,
@@ -656,7 +943,14 @@
       "askUsd": 122.26,
       "spreadUsd": 0.020000000000010232,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 15407.0,
+      "askSize": 29489.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 1883351.68,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:55+00:00",
+      "liquidityMarketDataType": 3
     },
     "BB3M": {
       "bid": 119.84,
@@ -671,7 +965,14 @@
       "askUsd": 119.88,
       "spreadUsd": 0.03999999999999204,
       "fxRateToUsd": 1.0,
-      "preferredExchange": "LSE"
+      "preferredExchange": "LSE",
+      "bidSize": 3316.0,
+      "askSize": 3762.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 397389.44,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:56+00:00",
+      "liquidityMarketDataType": 3
     },
     "CBU3": {
       "bid": 125.88,
@@ -688,7 +989,14 @@
       "fxRateToUsd": 1.0,
       "preferredExchange": "LSE",
       "ibSymbol": "CSBGU3",
-      "updatedAt": "2026-10-20T13:27:47+00:00"
+      "updatedAt": "2026-10-20T13:27:47+00:00",
+      "bidSize": 3762.0,
+      "askSize": 3762.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 473579.37,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:46+00:00",
+      "liquidityMarketDataType": 1
     },
     "CBU7": {
       "bid": 140.85,
@@ -705,7 +1013,14 @@
       "fxRateToUsd": 1.0,
       "preferredExchange": "LSE",
       "ibSymbol": "CSBGU7",
-      "updatedAt": "2026-10-20T13:27:48+00:00"
+      "updatedAt": "2026-10-20T13:27:48+00:00",
+      "bidSize": 3021.0,
+      "askSize": 141.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 19876.065,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:47+00:00",
+      "liquidityMarketDataType": 1
     },
     "CBU0": {
       "bid": 149.645,
@@ -722,7 +1037,14 @@
       "fxRateToUsd": 1.0,
       "preferredExchange": "LSE",
       "ibSymbol": "CSBGU0",
-      "updatedAt": "2026-10-20T13:27:47+00:00"
+      "updatedAt": "2026-10-20T13:27:47+00:00",
+      "bidSize": 2299.0,
+      "askSize": 2299.0,
+      "liquidityStatus": "adequate",
+      "liquidityMinSideNotionalUsd": 344010.865,
+      "liquidityThresholdUsd": 10000,
+      "liquidityCheckedAt": "2026-10-20T14:03:45+00:00",
+      "liquidityMarketDataType": 1
     }
   },
   "errors": {},
@@ -733,5 +1055,8 @@
     "CBU7"
   ],
   "partialMarketDataType": 1,
-  "partialMarketDataTypeLabel": "即時報價"
+  "partialMarketDataTypeLabel": "即時報價",
+  "liquidityCheckedAt": "2026-10-20T14:03:56+00:00",
+  "liquidityThresholdUsd": 10000,
+  "liquidityMarketDataType": 3
 }

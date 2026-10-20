@@ -1,6 +1,6 @@
 const ETFS_URL = "./data/etfs.json";
 const QUOTES_URL = "./data/market-data.json";
-const RATINGS_KEY = "ucits-etf-guide-ratings-v1";
+const LOW_LIQUIDITY_THRESHOLD_USD = 10_000;
 
 const rowsElement = document.querySelector("#etf-rows");
 const searchElement = document.querySelector("#search");
@@ -58,47 +58,21 @@ const formatQuoteTime = (value) => {
   }).format(date);
 };
 
-const readRatings = () => {
-  try {
-    const saved = localStorage.getItem(RATINGS_KEY);
-    return saved ? JSON.parse(saved) : {};
-  } catch (error) {
-    console.error("Unable to read ETF ratings from this browser.", error);
-    return {};
-  }
-};
-
-const saveRating = (ticker, rating) => {
-  const ratings = readRatings();
-  if (rating === 0) {
-    delete ratings[ticker];
-  } else {
-    ratings[ticker] = rating;
-  }
-  try {
-    localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
-  } catch (error) {
-    console.error("Unable to save ETF rating in this browser.", error);
-  }
-};
-
 const displayValue = (value, label = "待更新") =>
   value === null || value === undefined || value === "" ? `<span class="pending">${label}</span>` : value;
 
-const getRating = (etf, ratings) => {
-  const rating = ratings[etf.ticker] ?? etf.rating;
-  return Number.isInteger(rating) && rating >= 1 && rating <= 5 ? rating : 0;
-};
-
-const ratingMarkup = (etf, rating) => {
+const ratingMarkup = (etf) => {
+  const rating = Number.isInteger(etf.rating) && etf.rating >= 1 && etf.rating <= 5 ? etf.rating : 0;
   const stars = Array.from({ length: 5 }, (_, index) => {
-    const value = index + 1;
-    const selected = value <= rating;
-    return `<button class="star-button" type="button" data-ticker="${etf.ticker}" data-rating="${value}" aria-label="評 ${etf.ticker} ${value} 星" aria-pressed="${selected}">${selected ? "★" : "☆"}</button>`;
+    const selected = index < rating;
+    return `<span class="rating-star${selected ? " is-selected" : ""}" aria-hidden="true">${selected ? "★" : "☆"}</span>`;
   }).join("");
   const valueLabel = rating ? `${rating} / 5` : "待評分";
-  return `<div class="rating" aria-label="${etf.ticker} 個人評分">${stars}<span class="rating-value">${valueLabel}</span></div>`;
+  return `<div class="rating" aria-label="${etf.ticker} 個人評分：${valueLabel}">${stars}<span class="rating-value">${valueLabel}</span></div>`;
 };
+
+const criterionCheck = (label) =>
+  `<span class="criterion-check" role="img" aria-label="${label}" title="${label}">✓</span>`;
 
 const incomeTreatmentMarkup = (etf) => {
   const incomeTreatment = etf.incomeTreatment || etf.name;
@@ -128,15 +102,19 @@ const quoteMarkup = (quote, fallbackUpdatedAt) => {
   const ask = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(quote.askUsd);
   const spread = quote.spreadPct === null || quote.spreadPct === undefined || quote.spreadUsd === null
     ? ""
-    : `<span class="spread-pill">差 ${formatMoney(quote.spreadUsd, "USD", 4)} · ${quote.spreadBps.toFixed(1)} bps · ${quote.spreadPct.toFixed(3)}%</span>`;
+    : `<span class="spread-pill">差 ${formatMoney(quote.spreadUsd, "USD", 4)} · ${Number.isFinite(quote.spreadBps) ? quote.spreadBps.toFixed(1) : "—"} bps · ${quote.spreadPct.toFixed(3)}%${Number.isFinite(quote.spreadBps) && quote.spreadBps <= 5 ? criterionCheck("買賣差價不高於 5 bps") : ""}</span>`;
   const quoteTimestamp = formatQuoteTime(quote.updatedAt || fallbackUpdatedAt);
   const quoteDate = quoteTimestamp ? `<span class="data-sub">報價：${quoteTimestamp}（香港時間）</span>` : "";
-  return `<span class="quote-values"><span>B ${bid}</span><span>A ${ask}</span></span>${spread}${quoteDate}`;
+  const liquidity = quote.liquidityStatus === "low"
+    ? `<span class="liquidity-warning" title="IB 頂層 bid/ask 較小一側掛單金額約 ${formatMoney(quote.liquidityMinSideNotionalUsd, "USD", 2)}，低於 US$${LOW_LIQUIDITY_THRESHOLD_USD.toLocaleString()} 門檻"><span aria-hidden="true">⚠</span> IB 流動性偏低 <span class="data-sub">最小一邊 ${formatMoney(quote.liquidityMinSideNotionalUsd, "USD", 2)} · size 檢查 ${formatQuoteTime(quote.liquidityCheckedAt)}（香港時間）</span></span>`
+    : quote.liquidityCheckedAt && quote.liquidityStatus !== "adequate"
+      ? `<span class="liquidity-unknown">IB 未提供完整 size，流動性待核實 <span class="data-sub">size 檢查 ${formatQuoteTime(quote.liquidityCheckedAt)}（香港時間）</span></span>`
+      : "";
+  return `<span class="quote-values"><span>B ${bid}</span><span>A ${ask}</span></span>${spread}${liquidity}${quoteDate}`;
 };
 
 const renderRows = (etfs, marketData) => {
   const query = searchElement.value.trim().toLocaleLowerCase();
-  const ratings = readRatings();
   const quotes = marketData.quotes || {};
   const fxRates = marketData.fxRates || {};
   const visibleEtfs = etfs.filter((etf) =>
@@ -158,6 +136,7 @@ const renderRows = (etfs, marketData) => {
     const aum = aumUsdM === null
       ? null
       : `$${(aumUsdM / 1000).toFixed(2)}bn <span class="data-sub">按 EUR/USD ${aumFx.toFixed(4)} 換算</span>`;
+    const aumCheck = aumUsdM > 1000 ? criterionCheck("資產規模超過 US$1bn") : "";
     const inception = formatDate(etf.inceptionDate);
     const duration = etf.category !== "bond"
       ? `<span class="pending">—</span>`
@@ -182,6 +161,10 @@ const renderRows = (etfs, marketData) => {
       : "";
     const replication = etf.replicationLabel || (etf.replicationType === "unknown" ? "待核實" : "實物複製");
     const incomeTreatment = incomeTreatmentMarkup(etf);
+    const ter = etf.ter === null || etf.ter === undefined ? null : `${etf.ter.toFixed(2)}%`;
+    const terCheck = etf.ter !== null && etf.ter !== undefined && etf.ter < 0.2
+      ? criterionCheck("TER 低於 0.20%")
+      : "";
 
     return `<tr>
       <td class="fund-cell">
@@ -191,7 +174,7 @@ const renderRows = (etfs, marketData) => {
         </div>
       </td>
       <td>${incomeTreatment}</td>
-      <td><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}</span><span class="data-sub">${aum ? `資料：${etf.aumAsOf || "日期未有標示"}` : ""}</span></td>
+      <td><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}${aumCheck}</span><span class="data-sub">${aum ? `資料：${etf.aumAsOf || "日期未有標示"}` : ""}</span></td>
       <td>${quoteMarkup(quote, marketData.updatedAt)}</td>
       <td><span class="data-main">${currencyDescription}</span><span class="data-sub">${listingCurrencyDescription}</span></td>
       <td><span class="market-main">${etf.marketScope}</span></td>
@@ -199,10 +182,10 @@ const renderRows = (etfs, marketData) => {
       <td><span class="data-main">${etf.weighting}</span>${warning}</td>
       <td><span class="data-main">${replication}</span>${swapBadge}</td>
       <td class="factor-cell">${factorMarkup(etf)}</td>
-      <td><span class="data-main">${displayValue(etf.ter === null ? null : `${etf.ter.toFixed(2)}%`)}</span></td>
+      <td><span class="data-main">${displayValue(ter)}${terCheck}</span></td>
       <td><span class="data-main">${displayValue(inception)}</span>${etf.inceptionDateLabel ? `<span class="data-sub">${etf.inceptionDateLabel}</span>` : ""}</td>
       <td><span class="data-main">${displayValue(trackingError, "待核實")}</span></td>
-      <td>${ratingMarkup(etf, getRating(etf, ratings))}</td>
+      <td>${ratingMarkup(etf)}</td>
     </tr>`;
   }).join("");
 
@@ -276,14 +259,6 @@ const load = async () => {
       marketFilter.value = "all";
       replicationFilter.value = "all";
       factorFilter.value = "all";
-      rerender();
-    });
-    rowsElement.addEventListener("click", (event) => {
-      const button = event.target.closest(".star-button");
-      if (!button) return;
-      const etf = etfs.find((item) => item.ticker === button.dataset.ticker);
-      const rating = Number(button.dataset.rating);
-      saveRating(button.dataset.ticker, etf && getRating(etf, readRatings()) === rating ? 0 : rating);
       rerender();
     });
   } catch (error) {
