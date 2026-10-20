@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與個人評分。">
+    <title>全球 ETF 指南｜UCITS ETF 比較</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="全球 ETF 指南首頁">
+        <img class="brand-avatar" src="./siri%20cartoon.jpg" alt="Siri cartoon 頭像">
+        <span>全球 ETF 指南<span class="brand-subtitle">UCITS ETF FIELDNOTES</span></span>
+      </a>
+      <nav aria-label="主導覽">
+        <a href="#compare">ETF 比較</a>
+        <a href="#method">閱讀指引</a>
+        <a href="#sources">資料來源</a>
+      </nav>
+      <a class="header-link" href="#compare">開始比較 <span aria-hidden="true">↘</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> GLOBAL MARKETS · UCITS</p>
+          <h1>全球投資，<br><em>由一隻 ETF 開始。</em></h1>
+          <p class="hero-intro">用清楚、可核對的資料，認識全球股票及債券 UCITS ETF。比較市場、成本、交易價差與債券年期，再加入你自己的觀點。</p>
+          <a class="button button-dark" href="#compare">瀏覽 ETF 清單 <span aria-hidden="true">↓</span></a>
+          <p class="hero-note">獨立整理 · 不構成投資建議</p>
+        </div>
+        <div class="hero-art" aria-label="全球市場概念插圖">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <div class="globe">
+            <div class="globe-longitude"></div>
+            <div class="globe-latitude"></div>
+            <span class="globe-dot dot-one"></span>
+            <span class="globe-dot dot-two"></span>
+            <span class="globe-dot dot-three"></span>
+            <span class="globe-dot dot-four"></span>
+          </div>
+          <span class="art-label label-top">DEVELOPED + EMERGING</span>
+          <span class="art-label label-bottom">ONE WORLD · MANY MARKETS</span>
+        </div>
+        <div class="hero-bottom">
+          <span>從大中小型公司，到成熟及新興市場</span>
+          <span class="hero-bottom-right">資料最後整理 <strong id="data-date">—</strong></span>
+        </div>
+      </section>
+
+      <section class="intro-strip" aria-label="比較重點">
+        <div><span class="strip-index">01</span><span><strong>市場覆蓋</strong><small>追蹤指數包括甚麼？</small></span></div>
+        <div><span class="strip-index">02</span><span><strong>持有成本</strong><small>TER 是成本的一部分</small></span></div>
+        <div><span class="strip-index">03</span><span><strong>交易品質</strong><small>比較實際 bid / ask</small></span></div>
+        <div><span class="strip-index">04</span><span><strong>你的選擇</strong><small>留下個人評分與想法</small></span></div>
+      </section>
+
+      <section class="comparison section-shell" id="compare">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE SHORTLIST</p>
+            <h2>全球 ETF，<br class="mobile-break">逐項比較。</h2>
+          </div>
+          <p class="section-description">金額統一以 USD 顯示；非美元上市價以快照匯率換算，並標明原始上市貨幣。比較全球及區域市值加權 ETF、ex-USA ETF 和因子策略，並可按市場、複製方式及因子篩選。</p>
+        </div>
+
+        <div class="table-toolbar">
+          <label class="search-box">
+            <span class="sr-only">搜尋 ETF</span>
+            <span aria-hidden="true">⌕</span>
+            <input id="search" type="search" placeholder="搜尋代號、基金或指數" autocomplete="off">
+          </label>
+          <span class="quote-status" id="quote-status" role="status">正在讀取報價資料…</span>
+        </div>
+        <div class="filter-row" aria-label="ETF 篩選">
+          <label class="filter-control"><span>種類</span>
+            <select id="category-filter">
+              <option value="all">全部類別</option>
+              <option value="market-cap">市值加權</option>
+              <option value="factor">因子策略</option>
+              <option value="leveraged">槓桿</option>
+              <option value="bond">債券</option>
+            </select>
+          </label>
+          <label class="filter-control"><span>市場</span>
+            <select id="market-filter">
+              <option value="all">全部市場</option>
+              <option value="developed">已發展市場</option>
+              <option value="emerging">新興市場</option>
+              <option value="usa">美國</option>
+              <option value="ex-usa">不包括美國</option>
+            </select>
+          </label>
+          <label class="filter-control"><span>複製方式</span>
+            <select id="replication-filter">
+              <option value="all">全部方式</option>
+              <option value="physical">實物複製</option>
+              <option value="swap">SWAP 式</option>
+              <option value="active">主動管理</option>
+              <option value="unknown">待核實</option>
+            </select>
+          </label>
+          <label class="filter-control"><span>因子曝險</span>
+            <select id="factor-filter">
+              <option value="all">全部因子</option>
+              <option value="size">規模（SMB）</option>
+              <option value="value">價值（HML）</option>
+              <option value="profitability">盈利能力（RMW）</option>
+              <option value="investment">投資（CMA）</option>
+              <option value="momentum">動能（Carhart UMD）</option>
+              <option value="low-volatility">低波動（非 FF3/5）</option>
+            </select>
+          </label>
+          <button class="filter-reset" id="reset-filters" type="button">清除篩選</button>
+          <span class="filter-count" id="filter-count" role="status"></span>
+        </div>
+
+        <div class="table-scroll" tabindex="0" aria-label="ETF 比較表，可左右捲動">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">基金 / 指數</th>
+                <th scope="col">資產規模（USD）</th>
+                <th scope="col">IB bid / ask</th>
+                <th scope="col">計價 / 上市貨幣</th>
+                <th scope="col">投資市場</th>
+                <th scope="col">有效存續期（年）</th>
+                <th scope="col">加權方式</th>
+                <th scope="col">複製方式</th>
+                <th scope="col">Fama-French 因子曝險</th>
+                <th scope="col">TER</th>
+                <th scope="col">上市日期</th>
+                <th scope="col">追蹤誤差</th>
+                <th scope="col">我的評分</th>
+              </tr>
+            </thead>
+            <tbody id="etf-rows"></tbody>
+          </table>
+          <p class="empty-state" id="empty-state" hidden>找不到符合條件的 ETF。</p>
+        </div>
+        <div class="table-footnote">
+          <span><span class="live-indicator"></span> 報價快照日期：<strong id="quote-snapshot-date">尚未匯入 IB 報價</strong></span>
+          <span>快照時間：<strong id="quote-updated">尚未匯入 IB 報價</strong></span>
+          <span>FX 匯率：<strong id="fx-source">來源未標示</strong> · <strong id="fx-updated">尚未更新</strong></span>
+        </div>
+      </section>
+
+      <section class="method section-shell" id="method">
+        <div class="method-title">
+          <p class="eyebrow">A QUICK FIELD GUIDE</p>
+          <h2>看懂數字，<br>再看適不適合。</h2>
+          <p>名稱相近，不代表追蹤範圍、規模或交易成本相同。先理解指數，再比較基金。</p>
+        </div>
+        <div class="method-list">
+          <article>
+            <span class="method-number">01</span>
+            <div><h3>全球不一定等於「所有公司」</h3><p>FTSE All-World 與 MSCI ACWI 主要覆蓋大型及中型公司；ACWI IMI 和 FTSE Global All Cap 亦納入小型公司。不同指數的成分股數目與權重會有差異。</p></div>
+          </article>
+          <article>
+            <span class="method-number">02</span>
+            <div><h3>TER 不是全部持有成本</h3><p>TER 是基金年度經常性費用指標。交易佣金、買賣差價、稅項及基金相對指數的表現差異，亦會影響實際結果。</p></div>
+          </article>
+          <article>
+            <span class="method-number">03</span>
+            <div><h3>Spread 會隨市場變動</h3><p>bid/ask 受交易時段、流動性及市場狀況影響。本站顯示 IB Gateway 取得的快照，不代表全天平均或保證成交價；留意數據的時間及市場狀態。</p></div>
+          </article>
+          <article>
+            <span class="method-number">04</span>
+            <div><h3>追蹤誤差要看期間與算法</h3><p>追蹤誤差通常反映基金回報相對指數回報差異的波動程度，須同時查看計算期間和年化方式。不要把單一年度追蹤差異直接當作追蹤誤差。</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="sources section-shell" id="sources">
+        <div>
+          <p class="eyebrow">DATA NOTES</p>
+          <h2>數據有來源，<br>也有更新日期。</h2>
+        </div>
+        <div class="source-copy">
+          <p>基金基本資料與 TER 連結至來源頁供核對。規模以來源 EUR 資料按 FX 快照換算為 USD；來源未標明規模日期時會明確註記。報價數字以 USD 顯示，另列基金基礎貨幣及上市報價貨幣。追蹤誤差未填入未核實數字。</p>
+          <p>基金規模會因匯率換算日不同而變化；本網站同時顯示換算匯率時間。LVWC 是每日 2 倍槓桿 ETF，已特別標註，不應與普通未槓桿 ETF 直接比較。SWAP 式 ETF 會以掉期合約取得指數回報，承受交易對手及抵押品相關風險。</p>
+          <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄顯示有效存續期；如只取得指數到期範圍，會另行註明，兩者不可互換。</p>
+          <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
+          <div class="source-links" id="source-links"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">G</span><span>全球 ETF 指南<span class="brand-subtitle">PERSONAL RESEARCH, SHARED CLEARLY</span></span></a>
+      <p>資料只作教育及研究用途，不構成投資、稅務或法律建議。投資涉及風險，基金資料及報價可能延遲或有誤，請以基金公司及交易平台最新資訊為準。</p>
+      <a class="back-top" href="#top">返回頁首 ↑</a>
+    </footer>
+  </body>
+</html>
