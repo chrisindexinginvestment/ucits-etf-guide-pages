@@ -129,15 +129,16 @@ const renderRows = (etfs, marketData) => {
     const aumCheck = aumUsdM > 1000 ? criterionCheck("資產規模超過 US$1bn") : "";
     const aumScope = etf.aumScope === "fund" ? "整隻基金" : "文件 AUM（未分份額類別）";
     const inception = formatDate(etf.inceptionDate);
-    const listing = formatDate(etf.listingDate);
-    const reportedDuration = Number.isFinite(etf.reportedDurationYears)
-      ? `<span class="data-sub">${etf.reportedDurationLabel}：${etf.reportedDurationYears.toFixed(2)} 年</span><span class="data-sub">截至 ${formatDate(etf.reportedDurationAsOf)}</span>`
-      : "";
+    const useAverageDuration = !Number.isFinite(etf.effectiveDurationYears)
+      && Number.isFinite(etf.reportedDurationYears)
+      && etf.reportedDurationLabel?.startsWith("Average duration");
+    const durationYears = useAverageDuration ? etf.reportedDurationYears : etf.effectiveDurationYears;
+    const durationAsOf = useAverageDuration ? etf.reportedDurationAsOf : etf.durationAsOf;
     const duration = etf.category !== "bond"
       ? `<span class="pending">—</span>`
-      : etf.effectiveDurationYears === null || etf.effectiveDurationYears === undefined
-        ? `<span class="pending">${etf.durationNote || "待核實"}</span>${reportedDuration}${etf.maturityRange ? `<span class="data-sub">指數到期範圍：${etf.maturityRange}</span>` : ""}`
-        : `<span class="data-main">${etf.effectiveDurationYears.toFixed(2)} 年</span>${etf.durationAsOf ? `<span class="data-sub">截至 ${formatDate(etf.durationAsOf)}</span>` : ""}`;
+      : !Number.isFinite(durationYears)
+        ? `<span class="pending">待核實</span>${etf.maturityRange ? `<span class="data-sub">指數到期範圍：${etf.maturityRange}</span>` : ""}`
+        : `<span class="data-main">${durationYears.toFixed(2)} 年${useAverageDuration ? `<span aria-label="平均存續期，非有效存續期" title="平均存續期，非有效存續期">*</span>` : ""}</span>${useAverageDuration ? `<span class="data-sub">* 平均存續期（Average duration）</span>` : ""}${durationAsOf ? `<span class="data-sub">截至 ${formatDate(durationAsOf)}</span>` : ""}`;
     const trackingError = etf.trackingError === null || etf.trackingError === undefined
       ? null
       : `${etf.trackingError.toFixed(2)}% <span class="data-sub">${etf.trackingErrorPeriod || ""}</span>`;
@@ -178,7 +179,7 @@ const renderRows = (etfs, marketData) => {
       <td><span class="data-main">${replication}</span>${swapBadge}</td>
       <td class="factor-cell">${factorMarkup(etf)}</td>
       <td class="cost-cell"><span class="data-main">${displayValue(ter, "待核實")}${terCheck}</span><span class="data-sub">${etf.terLabel || "TER"}${etf.terAsOf ? ` · ${etf.terAsOf}` : ""}</span></td>
-      <td class="date-cell"><span class="data-main">${displayValue(listing, "未披露上市日期")}</span>${etf.listingDateNote ? `<span class="data-sub">${etf.listingDateNote}</span>` : ""}${inception ? `<span class="data-sub">${inception}</span><span class="data-sub">${etf.inceptionDateLabel || "成立日期（非上市日期）"}</span>` : ""}</td>
+      <td class="date-cell"><span class="data-main">${displayValue(inception, "待核實")}</span>${etf.inceptionDateLabel ? `<span class="data-sub">${etf.inceptionDateLabel}</span>` : ""}</td>
       <td class="tracking-cell"><span class="data-main">${displayValue(trackingError, etf.trackingErrorNote ? "未提供可核實百分比" : "待核實")}</span>${etf.trackingErrorNote ? `<span class="data-sub">${etf.trackingErrorNote}</span>` : ""}</td>
     </tr>`;
   }).join("");

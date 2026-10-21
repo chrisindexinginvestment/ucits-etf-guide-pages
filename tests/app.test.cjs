@@ -148,18 +148,48 @@ test("comparison table has 13 aligned columns and no personal rating column", as
   assert.doesNotMatch(rows, /rating|待評分|個人評分/);
 });
 
-test("listing date is distinct from inception and average duration remains qualified in the table", async () => {
+test("date column displays share-class inception instead of listing date", async () => {
   const { document, api } = await createApp();
   api.renderRows([byTicker("AVGS")], marketData);
   let rows = document.querySelector("#etf-rows").innerHTML;
-  assert.match(rows, /2024年12月4日/);
+  assert.doesNotMatch(rows, /2024年12月4日/);
   assert.match(rows, /2024年9月25日/);
-  api.renderRows([byTicker("VAGU")], marketData);
+  assert.match(html, /<th scope="col">份額類別成立日期<\/th>/);
+  assert.doesNotMatch(html, /<th scope="col">上市日期<\/th>/);
+  api.renderRows([{ ...byTicker("AVGS"), inceptionDate: null }], marketData);
   rows = document.querySelector("#etf-rows").innerHTML;
-  assert.match(rows, /未披露此交易所上市日期/);
-  assert.match(rows, /Average duration（平均存續期）：6\.00 年/);
-  assert.match(rows, /未明確標為有效存續期/);
-  assert.doesNotMatch(rows, /class="data-main">6\.00 年/);
+  assert.match(rows, /class="date-cell">.*待核實/);
+  assert.doesNotMatch(rows, /2024年12月4日/);
+});
+
+test("bond duration uses starred averages only when effective duration is unavailable", async () => {
+  const { document, api } = await createApp();
+  for (const ticker of ["VAGU", "VDTA", "VDST", "BB3M"]) {
+    const etf = byTicker(ticker);
+    api.renderRows([etf], marketData);
+    const rows = document.querySelector("#etf-rows").innerHTML;
+    assert.ok(rows.includes(`class="data-main">${etf.reportedDurationYears.toFixed(2)} 年<span`));
+    assert.match(rows, />\*<\/span>/);
+    assert.match(rows, /\* 平均存續期（Average duration）/);
+    assert.match(rows, /截至 2026年9月30日/);
+    assert.doesNotMatch(rows, /Factsheet 只列平均存續期/);
+  }
+  api.renderRows([{ ...byTicker("CBU0"), reportedDurationYears: 9, reportedDurationLabel: "Average duration" }], marketData);
+  let rows = document.querySelector("#etf-rows").innerHTML;
+  assert.match(rows, /class="data-main">6\.86 年<\/span>/);
+  assert.doesNotMatch(rows, />\*<\/span>/);
+  for (const invalidAverage of [
+    { reportedDurationYears: null },
+    { reportedDurationYears: 1, reportedDurationLabel: "Average maturity" },
+  ]) {
+    api.renderRows([{ ...byTicker("VAGU"), ...invalidAverage }], marketData);
+    rows = document.querySelector("#etf-rows").innerHTML;
+    assert.match(rows, /class="duration-cell"><span class="pending">待核實/);
+    assert.doesNotMatch(rows, />\*<\/span>/);
+  }
+  api.renderRows([{ ...byTicker("VALL"), reportedDurationYears: 9, reportedDurationLabel: "Average duration" }], marketData);
+  assert.match(document.querySelector("#etf-rows").innerHTML, /class="duration-cell"><span class="pending">—<\/span>/);
+  assert.match(html, /\* 債券 ETF 未披露有效存續期時/);
 });
 
 test("unverified income is not inferred from a fund name", async () => {

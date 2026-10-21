@@ -7,7 +7,7 @@
     <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與資產配置範例。">
     <title>UCITS ETF 指數投資指南｜ETF 比較</title>
     <link rel="stylesheet" href="./styles.css?v=20261021-no-rating">
-    <script src="./app.js?v=20261021-no-rating" defer></script>
+    <script src="./app.js?v=20261021-duration-inception" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -170,12 +170,12 @@
                 <th scope="col">IB bid / ask</th>
                 <th scope="col">計價 / 上市貨幣</th>
                 <th scope="col">投資市場</th>
-                <th scope="col">有效存續期（年）</th>
+                <th scope="col">有效存續期（年；* 平均存續期）</th>
                 <th scope="col">加權方式</th>
                 <th scope="col">複製方式</th>
                 <th scope="col">Fama-French 因子曝險</th>
                 <th scope="col">TER / OCF 等年度費用</th>
-                <th scope="col">上市日期</th>
+                <th scope="col">份額類別成立日期</th>
                 <th scope="col">追蹤誤差</th>
               </tr>
             </thead>
@@ -184,6 +184,7 @@
           <p class="empty-state" id="empty-state" hidden>找不到符合條件的 ETF。</p>
         </div>
         <div class="table-footnote">
+          <span>* 債券 ETF 未披露有效存續期時，以官方 factsheet 的平均存續期顯示並加星號；兩者口徑不同，並非到期年限。</span>
           <span><span class="live-indicator"></span> 完整報價快照日期：<strong id="quote-snapshot-date">尚未匯入 IB 報價</strong></span>
           <span>完整快照時間：<strong id="quote-updated">尚未匯入 IB 報價</strong></span>
           <span>FX 匯率：<strong id="fx-source">來源未標示</strong> · <strong id="fx-updated">尚未更新</strong></span>
@@ -278,9 +279,9 @@
         </div>
         <div class="source-copy">
           <p>2026 年 10 月 21 日逐項核對清單內 46 個上市代號的官方 factsheet，逐列附文件日期及連結。大部分文件截至 2026 年 9 月 30 日；LVWC 官網連結仍提供 2025 年 11 月 30 日文件，未能確認更新版本，已明確標示資料較舊。資產規模優先採用整隻基金數字；文件只列 AUM 而未分份額類別時會另行註明，不以份額類別規模冒充整隻基金規模。非美元規模按 IB FX 快照換算；美元原值不再換算。部分文件只公布四捨五入金額，已保留原始精度說明。</p>
-          <p>年度費用保留發行商原有口徑（TER、OCF、All-in fee 或經常性費用），各列標示名稱及日期，不能視為所有交易成本的總和。上市日期須有指定代號及交易所的文件證據；文件只有成立／launch date 時另列，不當作上市日期。追蹤誤差只填有明確期間及可核實百分比的數值，不以回報差距、波動率或預期追蹤誤差代替。ESAN 文件列 ex-post tracking error 0.04，但未明確標示單位，故百分比仍待核實。</p>
+          <p>年度費用保留發行商原有口徑（TER、OCF、All-in fee 或經常性費用），各列標示名稱及日期，不能視為所有交易成本的總和。日期欄使用官方 factsheet 的份額類別成立／launch date，並非交易所上市日期；文件標籤有差異時會另註。追蹤誤差只填有明確期間及可核實百分比的數值，不以回報差距、波動率或預期追蹤誤差代替。ESAN 文件列 ex-post tracking error 0.04，但未明確標示單位，故百分比仍待核實。</p>
           <p>基金規模會因匯率換算日不同而變化；本網站同時顯示換算匯率時間。LVWC 是每日 2 倍槓桿 ETF，已特別標註，不應與普通未槓桿 ETF 直接比較。SWAP 式 ETF 會以掉期合約取得指數回報，承受交易對手及抵押品相關風險。</p>
-          <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄只把明確標為 effective duration 的數字填作有效存續期；VAGU、VDTA、VDST 及 BB3M 文件只有 average duration，故另列平均存續期，不代替有效存續期或到期年限。iShares 文件另註明其他資料截至 2026 年 10 月 5 日，欄位日期按文件標示。</p>
+          <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄優先顯示 effective duration；未披露時使用 average duration 並加 *，目前包括 VAGU、VDTA、VDST 及 BB3M。星號數字為平均存續期，不應當作有效存續期或到期年限；兩者皆無可核實數字時仍顯示待核實。iShares 文件另註明其他資料截至 2026 年 10 月 5 日，欄位日期按文件標示。</p>
           <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；頁面按 bid/ask 較小一邊的掛單金額低於 US$10,000 標示流動性偏低，IB 未提供 size 時則列為待核實。更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
           <div class="source-links" id="source-links"></div>
         </div>
