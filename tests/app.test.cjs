@@ -214,6 +214,31 @@ test("filters, search, empty state and reset still work", async () => {
   assert.equal((document.querySelector("#etf-rows").innerHTML.match(/<tr>/g) || []).length, 46);
 });
 
+test("IB search aliases are displayed and searchable without replacing primary tickers or quotes", async () => {
+  const { document } = await createApp();
+  const search = document.querySelector("#search");
+  assert.equal(etfs.filter((etf) => etf.ibSearchTickers?.length).length, 3);
+  for (const [ticker, alias] of [["CBU0", "CSBGU0"], ["CBU3", "CSBGU3"], ["CBU7", "CSBGU7"]]) {
+    assert.deepEqual(byTicker(ticker).ibSearchTickers, [alias]);
+    for (const query of [ticker, ` ${alias.toLowerCase()} `]) {
+      search.value = query;
+      search.handlers.input();
+      const rows = document.querySelector("#etf-rows").innerHTML;
+      assert.equal((rows.match(/<tr>/g) || []).length, 1);
+      assert.ok(rows.includes(`<span class="ticker-badge">${ticker}</span>`));
+      assert.ok(rows.includes(`IB 搜尋代號：${alias}`));
+      assert.match(rows, /quote-values/);
+      assert.equal(document.querySelector("#empty-state").hidden, true);
+    }
+  }
+  document.querySelector("#category-filter").value = "equity";
+  search.handlers.input();
+  assert.equal(document.querySelector("#etf-rows").innerHTML, "");
+  assert.equal(document.querySelector("#empty-state").hidden, false);
+  document.querySelector("#reset-filters").handlers.click();
+  assert.equal((document.querySelector("#etf-rows").innerHTML.match(/IB 搜尋代號：/g) || []).length, 3);
+});
+
 test("both portfolio examples have exact weights and distinguish the equity denominator", () => {
   assert.ok(html.indexOf('id="compare"') < html.indexOf('id="allocation"'));
   assert.ok(html.indexOf('id="allocation"') < html.indexOf('id="method"'));

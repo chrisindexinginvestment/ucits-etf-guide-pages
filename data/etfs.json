@@ -1330,6 +1330,7 @@
   },
   {
     "ticker": "CBU0",
+    "ibSearchTickers": ["CSBGU0"],
     "isin": "IE00B3VWN518",
     "name": "iShares $ Treasury Bond 7-10yr UCITS ETF USD Acc",
     "issuer": "iShares",
@@ -1373,6 +1374,7 @@
   },
   {
     "ticker": "CBU3",
+    "ibSearchTickers": ["CSBGU3"],
     "isin": "IE00B3VWN179",
     "name": "iShares $ Treasury Bond 1-3yr UCITS ETF USD Acc",
     "issuer": "iShares",
@@ -1416,6 +1418,7 @@
   },
   {
     "ticker": "CBU7",
+    "ibSearchTickers": ["CSBGU7"],
     "isin": "IE00B3VWN393",
     "name": "iShares $ Treasury Bond 3-7yr UCITS ETF USD Acc",
     "issuer": "iShares",
