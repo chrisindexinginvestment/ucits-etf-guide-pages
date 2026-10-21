@@ -16,7 +16,6 @@ Repository 設定為由 `main` branch 的根目錄發佈。網站可公開瀏覽
 - `data/market-data.json` 是某一時間點的 IB Gateway 快照，不是即時串流。請查看頁面上的完整快照日期、各列報價時間及報價類型；部分更新只刷新指定標的，其餘標的沿用之前快照。目前可用的報價可能為延遲報價。
 - 債券 ETF 的 `effectiveDurationYears` 只填明確標為 effective duration 的數字，附 `durationAsOf`。VAGU、VDTA、VDST 和 BB3M 只披露 average duration，另存於 `reportedDurationYears` / `reportedDurationLabel` / `reportedDurationAsOf`，不冒充有效存續期。指數到期範圍亦只作補充。iShares 文件註明其他資料截至 2026-10-05，故費用及有效存續期日期與月末 AUM 日期不同。
 - 比較表下方設有兩個教育用途的配置範例：VALL / CBU0 為 80 / 20；VALL / AVGS / CBU0 為 60 / 20 / 20。後者的股票部分為 75% 市值加權及 25% small-cap value tilt，分母為股票佔組合的 80%，不是整體組合；不涉及回測或回報保證。
-- 網頁評分保存在瀏覽器 local storage，不會自動上傳。
 
 基金資料與報價只供教育及研究用途，不構成投資建議。
 

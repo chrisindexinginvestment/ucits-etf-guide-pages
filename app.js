@@ -61,16 +61,6 @@ const formatQuoteTime = (value) => {
 const displayValue = (value, label = "待更新") =>
   value === null || value === undefined || value === "" ? `<span class="pending">${label}</span>` : value;
 
-const ratingMarkup = (etf) => {
-  const rating = Number.isInteger(etf.rating) && etf.rating >= 1 && etf.rating <= 5 ? etf.rating : 0;
-  const stars = Array.from({ length: 5 }, (_, index) => {
-    const selected = index < rating;
-    return `<span class="rating-star${selected ? " is-selected" : ""}" aria-hidden="true">${selected ? "★" : "☆"}</span>`;
-  }).join("");
-  const valueLabel = rating ? `${rating} / 5` : "待評分";
-  return `<div class="rating" aria-label="${etf.ticker} 個人評分：${valueLabel}">${stars}<span class="rating-value">${valueLabel}</span></div>`;
-};
-
 const criterionCheck = (label) =>
   `<span class="criterion-check" role="img" aria-label="${label}" title="${label}">✓</span>`;
 
@@ -190,7 +180,6 @@ const renderRows = (etfs, marketData) => {
       <td class="cost-cell"><span class="data-main">${displayValue(ter, "待核實")}${terCheck}</span><span class="data-sub">${etf.terLabel || "TER"}${etf.terAsOf ? ` · ${etf.terAsOf}` : ""}</span></td>
       <td class="date-cell"><span class="data-main">${displayValue(listing, "未披露上市日期")}</span>${etf.listingDateNote ? `<span class="data-sub">${etf.listingDateNote}</span>` : ""}${inception ? `<span class="data-sub">${inception}</span><span class="data-sub">${etf.inceptionDateLabel || "成立日期（非上市日期）"}</span>` : ""}</td>
       <td class="tracking-cell"><span class="data-main">${displayValue(trackingError, etf.trackingErrorNote ? "未提供可核實百分比" : "待核實")}</span>${etf.trackingErrorNote ? `<span class="data-sub">${etf.trackingErrorNote}</span>` : ""}</td>
-      <td>${ratingMarkup(etf)}</td>
     </tr>`;
   }).join("");
 

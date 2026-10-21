@@ -136,6 +136,18 @@ test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snap
   assert.match(document.querySelector("#etf-rows").innerHTML, /等待 FX 換算/);
 });
 
+test("comparison table has 13 aligned columns and no personal rating column", async () => {
+  const { document } = await createApp();
+  const header = html.match(/<thead>[\s\S]*?<\/thead>/)[0];
+  assert.equal((header.match(/<th scope="col">/g) || []).length, 13);
+  assert.doesNotMatch(html, /我的評分|個人評分/);
+  const rows = document.querySelector("#etf-rows").innerHTML;
+  for (const row of rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)) {
+    assert.equal((row[1].match(/<td(?:\s|>)/g) || []).length, 13);
+  }
+  assert.doesNotMatch(rows, /rating|待評分|個人評分/);
+});
+
 test("listing date is distinct from inception and average duration remains qualified in the table", async () => {
   const { document, api } = await createApp();
   api.renderRows([byTicker("AVGS")], marketData);

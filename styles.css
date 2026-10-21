@@ -215,10 +215,6 @@ tbody tr:hover .fund-cell { background: #fbfcfa; }
 .liquidity-warning > span:first-child { margin-right: 3px; font-size: 15px; }
 .liquidity-warning .data-sub { color: #8b6a33; font-weight: 400; }
 .liquidity-unknown { display: block; margin-top: 6px; color: #7d7060; font-size: 11px; }
-.rating { display: flex; align-items: center; gap: 2px; }
-.rating-star { color: #cbd1c8; font-size: 14px; line-height: 1; }
-.rating-star.is-selected { color: #8eab37; }
-.rating-value { min-width: 28px; margin-left: 4px; color: #68736d; font-family: var(--mono); font-size: 11px; }
 .table-footnote { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; color: #7a847c; font-size: 11px; }
 .table-footnote strong { color: #5d6a61; font-weight: 500; }
 .live-indicator { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: #b9c3b7; vertical-align: middle; }
