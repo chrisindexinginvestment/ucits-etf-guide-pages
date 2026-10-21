@@ -271,3 +271,12 @@ test("both portfolio examples have exact weights and distinguish the equity deno
   assert.match(allocation, /並非整體組合的 75%／25%/);
   assert.match(allocation, /不是個人化投資建議/);
 });
+
+test("header links to example portfolios between the field guide and sources", () => {
+  const navigation = html.match(/<nav aria-label="主導覽">([\s\S]*?)<\/nav>/)[1];
+  const links = [...navigation.matchAll(/<a href="([^"]+)">([^<]+)<\/a>/g)]
+    .map(([, href, label]) => ({ href, label }));
+  const readingGuideIndex = links.findIndex((link) => link.href === "#method");
+  assert.deepEqual(links[readingGuideIndex + 1], { href: "#allocation", label: "範例組合" });
+  assert.equal(links[readingGuideIndex + 2].href, "#sources");
+});
