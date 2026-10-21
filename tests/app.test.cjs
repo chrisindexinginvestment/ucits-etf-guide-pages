@@ -273,6 +273,8 @@ test("both portfolio examples have exact weights and distinguish the equity deno
 });
 
 test("header links to example portfolios between the field guide and sources", () => {
+  assert.match(html, /<title>基斯的理財投資筆記｜UCITS ETF 比較<\/title>/);
+  assert.match(html, /<a class="brand" href="#top" aria-label="基斯的理財投資筆記首頁">[\s\S]*?<span>基斯的理財投資筆記<span class="brand-subtitle">UCITS ETF FIELDNOTES<\/span><\/span>/);
   const navigation = html.match(/<nav aria-label="主導覽">([\s\S]*?)<\/nav>/)[1];
   const links = [...navigation.matchAll(/<a href="([^"]+)">([^<]+)<\/a>/g)]
     .map(([, href, label]) => ({ href, label }));
