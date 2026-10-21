@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f5f7f4">
     <meta name="description" content="比較全球股票及債券 UCITS ETF：基金規模、IB Gateway bid/ask spread、TER、債券有效存續期與個人評分。">
     <title>UCITS ETF 指數投資指南｜ETF 比較</title>
-    <link rel="stylesheet" href="./styles.css?v=20261020-2214">
-    <script src="./app.js?v=20261020-2212" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261021-factsheets">
+    <script src="./app.js?v=20261021-factsheets" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -17,6 +17,7 @@
       </a>
       <nav aria-label="主導覽">
         <a href="#compare">ETF 比較</a>
+        <a href="#allocation">配置範例</a>
         <a href="#method">閱讀指引</a>
         <a href="#sources">資料來源</a>
       </nav>
@@ -173,7 +174,7 @@
                 <th scope="col">加權方式</th>
                 <th scope="col">複製方式</th>
                 <th scope="col">Fama-French 因子曝險</th>
-                <th scope="col">TER</th>
+                <th scope="col">TER / OCF 等年度費用</th>
                 <th scope="col">上市日期</th>
                 <th scope="col">追蹤誤差</th>
                 <th scope="col">我的評分</th>
@@ -188,6 +189,49 @@
           <span>完整快照時間：<strong id="quote-updated">尚未匯入 IB 報價</strong></span>
           <span>FX 匯率：<strong id="fx-source">來源未標示</strong> · <strong id="fx-updated">尚未更新</strong></span>
         </div>
+      </section>
+
+      <section class="allocation section-shell" id="allocation" aria-labelledby="allocation-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PORTFOLIO EXAMPLES</p>
+            <h2 id="allocation-title">資產配置，<br>由比例開始。</h2>
+          </div>
+          <p class="section-description">以下兩個假設組合均為股票 80%、債券 20%。百分比代表整體組合的目標配置，只供理解配置方法，不是個人化投資建議。</p>
+        </div>
+        <div class="allocation-cards">
+          <article class="allocation-card" aria-labelledby="allocation-market-title">
+            <p class="eyebrow">01 · MARKET CAP WEIGHTED</p>
+            <h3 id="allocation-market-title">股：債 8：2</h3>
+            <p>以 VALL 配上 CBU0，建立全球股票與美國國庫債券的組合。</p>
+            <div class="allocation-bar" role="img" aria-label="VALL 股票 80%，CBU0 債券 20%">
+              <span class="allocation-market" style="--allocation-weight: 80">80%</span>
+              <span class="allocation-bond" style="--allocation-weight: 20">20%</span>
+            </div>
+            <ul class="allocation-holdings">
+              <li><span><strong>VALL</strong> 全球市值加權股票</span><strong>80%</strong></li>
+              <li><span><strong>CBU0</strong> 美國 7–10 年期國庫債券</span><strong>20%</strong></li>
+            </ul>
+            <p class="allocation-note">股票部分：100% market cap weighted（市值加權）。</p>
+          </article>
+          <article class="allocation-card" aria-labelledby="allocation-factor-title">
+            <p class="eyebrow">02 · SMALL CAP VALUE TILT</p>
+            <h3 id="allocation-factor-title">多因子股債配置</h3>
+            <p>VALL：AVGS：CBU0 = 60：20：20，在股票部分加入小型價值股傾斜。</p>
+            <div class="allocation-bar" role="img" aria-label="VALL 股票 60%，AVGS 小型價值股票 20%，CBU0 債券 20%">
+              <span class="allocation-market" style="--allocation-weight: 60">60%</span>
+              <span class="allocation-factor" style="--allocation-weight: 20">20%</span>
+              <span class="allocation-bond" style="--allocation-weight: 20">20%</span>
+            </div>
+            <ul class="allocation-holdings">
+              <li><span><strong>VALL</strong> 全球市值加權股票</span><strong>60%</strong></li>
+              <li><span><strong>AVGS</strong> 全球小型價值股票</span><strong>20%</strong></li>
+              <li><span><strong>CBU0</strong> 美國 7–10 年期國庫債券</span><strong>20%</strong></li>
+            </ul>
+            <p class="allocation-note"><strong>股票部分的分佈：</strong>75% market cap weighted（市值加權），25% 側重 small cap value tilt（小型價值股傾斜）。以股票佔組合的 80% 為分母：60% ÷ 80% = 75%，20% ÷ 80% = 25%；並非整體組合的 75%／25%。</p>
+          </article>
+        </div>
+        <p class="allocation-caveat">這是配置比例示例，並非回測、回報預測或最佳化結果。股票及債券均可能下跌；CBU0 持有 7–10 年期美國國庫債券，仍有利率與價格風險，並非現金替代品。AVGS 為主動管理基金，小型價值股傾斜不保證帶來額外回報；實際因子曝險會隨持倉改變。實際權重會隨市場變動，亦須考慮再平衡、費用及個人風險承受能力。</p>
       </section>
 
       <section class="method section-shell" id="method">
@@ -234,9 +278,10 @@
           <h2>數據有來源，<br>也有更新日期。</h2>
         </div>
         <div class="source-copy">
-          <p>基金基本資料與 TER 連結至來源頁供核對。規模以來源 EUR 資料按 FX 快照換算為 USD；來源未標明規模日期時會明確註記。報價數字以 USD 顯示，另列基金基礎貨幣及上市報價貨幣。累積／派息類別以基金資料標示，未能核實時會列為待核實；追蹤誤差亦不填入未核實數字。</p>
+          <p>2026 年 10 月 21 日逐項核對清單內 46 個上市代號的官方 factsheet，逐列附文件日期及連結。大部分文件截至 2026 年 9 月 30 日；LVWC 官網連結仍提供 2025 年 11 月 30 日文件，未能確認更新版本，已明確標示資料較舊。資產規模優先採用整隻基金數字；文件只列 AUM 而未分份額類別時會另行註明，不以份額類別規模冒充整隻基金規模。非美元規模按 IB FX 快照換算；美元原值不再換算。部分文件只公布四捨五入金額，已保留原始精度說明。</p>
+          <p>年度費用保留發行商原有口徑（TER、OCF、All-in fee 或經常性費用），各列標示名稱及日期，不能視為所有交易成本的總和。上市日期須有指定代號及交易所的文件證據；文件只有成立／launch date 時另列，不當作上市日期。追蹤誤差只填有明確期間及可核實百分比的數值，不以回報差距、波動率或預期追蹤誤差代替。ESAN 文件列 ex-post tracking error 0.04，但未明確標示單位，故百分比仍待核實。</p>
           <p>基金規模會因匯率換算日不同而變化；本網站同時顯示換算匯率時間。LVWC 是每日 2 倍槓桿 ETF，已特別標註，不應與普通未槓桿 ETF 直接比較。SWAP 式 ETF 會以掉期合約取得指數回報，承受交易對手及抵押品相關風險。</p>
-          <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄顯示有效存續期；如只取得指數到期範圍，會另行註明，兩者不可互換。</p>
+          <p>因子欄以基金/指數方法描述預期曝險，並非基金回報的統計回歸結果。SMB、HML、RMW、CMA 分別為 Fama-French 五因子模型中的規模、價值、盈利能力及投資因子；動能（UMD）屬 Carhart 延伸因子，低波動亦非 FF3/FF5 標準因子。複製方式未有基金文件支持時會標示待核實，不會推測為 SWAP。債券欄只把明確標為 effective duration 的數字填作有效存續期；VAGU、VDTA、VDST 及 BB3M 文件只有 average duration，故另列平均存續期，不代替有效存續期或到期年限。iShares 文件另註明其他資料截至 2026 年 10 月 5 日，欄位日期按文件標示。</p>
           <p>IB Gateway 報價由你在本機執行的唯讀腳本輸出，包含所需外匯換算；頁面按 bid/ask 較小一邊的掛單金額低於 US$10,000 標示流動性偏低，IB 未提供 size 時則列為待核實。更新後把快照檔推送到網站 repo。GitHub Pages 不會直接連接你的 IB Gateway。</p>
           <div class="source-links" id="source-links"></div>
         </div>

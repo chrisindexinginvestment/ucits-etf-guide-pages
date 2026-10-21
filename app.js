@@ -75,8 +75,8 @@ const criterionCheck = (label) =>
   `<span class="criterion-check" role="img" aria-label="${label}" title="${label}">✓</span>`;
 
 const incomeTreatmentMarkup = (etf) => {
-  const incomeTreatment = etf.incomeTreatment || etf.name;
-  if (/(?:\bacc\b|accumulation|capitalisation|\b1c\b)/i.test(incomeTreatment)) {
+  const incomeTreatment = etf.incomeTreatment || "";
+  if (/(?:\bacc\b|accumulat(?:ion|ing)|capitalisation|\b1c\b)/i.test(incomeTreatment)) {
     return `<span class="data-main">累積型</span>`;
   }
   if (/(?:\bdist\b|distributing|distribution|\b1d\b)/i.test(incomeTreatment)) {
@@ -135,13 +135,18 @@ const renderRows = (etfs, marketData) => {
       : etf.aumReportedM * aumFx;
     const aum = aumUsdM === null
       ? null
-      : `$${(aumUsdM / 1000).toFixed(2)}bn <span class="data-sub">按 EUR/USD ${aumFx.toFixed(4)} 換算</span>`;
+      : `$${(aumUsdM / 1000).toFixed(2)}bn${etf.aumReportedCurrency !== "USD" ? ` <span class="data-sub">按 ${etf.aumReportedCurrency}/USD ${aumFx.toFixed(4)} 換算</span>` : ""}`;
     const aumCheck = aumUsdM > 1000 ? criterionCheck("資產規模超過 US$1bn") : "";
+    const aumScope = etf.aumScope === "fund" ? "整隻基金" : "文件 AUM（未分份額類別）";
     const inception = formatDate(etf.inceptionDate);
+    const listing = formatDate(etf.listingDate);
+    const reportedDuration = Number.isFinite(etf.reportedDurationYears)
+      ? `<span class="data-sub">${etf.reportedDurationLabel}：${etf.reportedDurationYears.toFixed(2)} 年</span><span class="data-sub">截至 ${formatDate(etf.reportedDurationAsOf)}</span>`
+      : "";
     const duration = etf.category !== "bond"
       ? `<span class="pending">—</span>`
       : etf.effectiveDurationYears === null || etf.effectiveDurationYears === undefined
-        ? `<span class="pending">待核實</span>${etf.maturityRange ? `<span class="data-sub">指數到期範圍：${etf.maturityRange}</span>` : ""}`
+        ? `<span class="pending">${etf.durationNote || "待核實"}</span>${reportedDuration}${etf.maturityRange ? `<span class="data-sub">指數到期範圍：${etf.maturityRange}</span>` : ""}`
         : `<span class="data-main">${etf.effectiveDurationYears.toFixed(2)} 年</span>${etf.durationAsOf ? `<span class="data-sub">截至 ${formatDate(etf.durationAsOf)}</span>` : ""}`;
     const trackingError = etf.trackingError === null || etf.trackingError === undefined
       ? null
@@ -170,11 +175,11 @@ const renderRows = (etfs, marketData) => {
       <td class="fund-cell">
         <div class="fund-name">
           <span class="ticker-badge">${etf.ticker}</span>
-          <span><strong>${fundName}</strong><span class="fund-meta">${etf.index}</span></span>
+          <span><strong>${fundName}</strong><span class="fund-meta">${etf.index}</span><a class="fund-meta" href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">官方 factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>${etf.verificationNote ? `<span class="fund-meta verification-warning">${etf.verificationNote}</span>` : ""}</span>
         </div>
       </td>
       <td>${incomeTreatment}</td>
-      <td><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}${aumCheck}</span><span class="data-sub">${aum ? `資料：${etf.aumAsOf || "日期未有標示"}` : ""}</span></td>
+      <td class="aum-cell"><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}${aumCheck}</span>${aum ? `<span class="data-sub">${aumScope} · 截至 ${etf.aumAsOf || "日期待核實"}</span>` : ""}${etf.aumNote ? `<span class="data-sub">${etf.aumNote}</span>` : ""}</td>
       <td>${quoteMarkup(quote, marketData.updatedAt)}</td>
       <td><span class="data-main">${currencyDescription}</span><span class="data-sub">${listingCurrencyDescription}</span></td>
       <td><span class="market-main">${etf.marketScope}</span></td>
@@ -182,9 +187,9 @@ const renderRows = (etfs, marketData) => {
       <td><span class="data-main">${etf.weighting}</span>${warning}</td>
       <td><span class="data-main">${replication}</span>${swapBadge}</td>
       <td class="factor-cell">${factorMarkup(etf)}</td>
-      <td><span class="data-main">${displayValue(ter)}${terCheck}</span></td>
-      <td><span class="data-main">${displayValue(inception)}</span>${etf.inceptionDateLabel ? `<span class="data-sub">${etf.inceptionDateLabel}</span>` : ""}</td>
-      <td><span class="data-main">${displayValue(trackingError, "待核實")}</span></td>
+      <td class="cost-cell"><span class="data-main">${displayValue(ter, "待核實")}${terCheck}</span><span class="data-sub">${etf.terLabel || "TER"}${etf.terAsOf ? ` · ${etf.terAsOf}` : ""}</span></td>
+      <td class="date-cell"><span class="data-main">${displayValue(listing, "未披露上市日期")}</span>${etf.listingDateNote ? `<span class="data-sub">${etf.listingDateNote}</span>` : ""}${inception ? `<span class="data-sub">${inception}</span><span class="data-sub">${etf.inceptionDateLabel || "成立日期（非上市日期）"}</span>` : ""}</td>
+      <td class="tracking-cell"><span class="data-main">${displayValue(trackingError, etf.trackingErrorNote ? "未提供可核實百分比" : "待核實")}</span>${etf.trackingErrorNote ? `<span class="data-sub">${etf.trackingErrorNote}</span>` : ""}</td>
       <td>${ratingMarkup(etf)}</td>
     </tr>`;
   }).join("");
@@ -195,7 +200,7 @@ const renderRows = (etfs, marketData) => {
 
 const renderSources = (etfs) => {
   sourceLinksElement.innerHTML = etfs.map((etf) =>
-    `<a href="${etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} 基金資料 ↗</a>`,
+    `<a href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>`,
   ).join("");
 };
 
