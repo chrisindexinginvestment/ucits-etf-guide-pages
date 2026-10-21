@@ -192,8 +192,15 @@ const renderRows = (etfs, marketData) => {
 };
 
 const renderSources = (etfs) => {
-  sourceLinksElement.innerHTML = etfs.map((etf) =>
-    `<a href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>`,
+  const groups = [
+    { label: "市值加權", funds: etfs.filter((etf) => etf.category !== "bond" && !(etf.factorTags || []).length) },
+    { label: "因子", funds: etfs.filter((etf) => etf.category !== "bond" && (etf.factorTags || []).length > 0) },
+    { label: "債券", funds: etfs.filter((etf) => etf.category === "bond") },
+  ];
+  sourceLinksElement.innerHTML = groups.map(({ label, funds }) =>
+    `<section class="source-group"><h3>${label}</h3><div class="source-group-links">${funds.map((etf) =>
+      `<a href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>`,
+    ).join("")}</div></section>`,
   ).join("");
 };
 

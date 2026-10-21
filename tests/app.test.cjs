@@ -40,7 +40,7 @@ const createApp = async () => {
     }),
   });
   vm.runInContext(script.replace(/load\(\);\s*$/, "globalThis.ready = load();"), context);
-  vm.runInContext("globalThis.api = { renderRows, incomeTreatmentMarkup };", context);
+  vm.runInContext("globalThis.api = { renderRows, renderSources, incomeTreatmentMarkup };", context);
   await context.ready;
   assert.deepEqual(errors, []);
   return { document, api: context.api };
@@ -119,7 +119,24 @@ test("rendering preserves income, quotes, source links and the older-source warn
   assert.match(rows, /verification-warning/);
   assert.match(rows, /2025-11-30/);
   assert.equal(document.querySelector("#data-date").textContent, "2026-10-21");
-  assert.equal((document.querySelector("#source-links").innerHTML.match(/<a /g) || []).length, 46);
+  const sourceLinks = document.querySelector("#source-links").innerHTML;
+  assert.equal((sourceLinks.match(/<a /g) || []).length, 46);
+  assert.deepEqual(
+    [...sourceLinks.matchAll(/<section class="source-group"><h3>([^<]+)<\/h3>/g)].map((match) => match[1]),
+    ["市值加權", "因子", "債券"],
+  );
+  for (const [label, funds] of [
+    ["市值加權", etfs.filter((etf) => etf.category !== "bond" && !(etf.factorTags || []).length)],
+    ["因子", etfs.filter((etf) => etf.category !== "bond" && (etf.factorTags || []).length > 0)],
+    ["債券", etfs.filter((etf) => etf.category === "bond")],
+  ]) {
+    const groupStart = sourceLinks.indexOf(`<section class="source-group"><h3>${label}</h3>`);
+    assert.notEqual(groupStart, -1, label);
+    const groupEnd = sourceLinks.indexOf("</section>", groupStart);
+    const group = sourceLinks.slice(groupStart, groupEnd);
+    assert.equal((group.match(/<a /g) || []).length, funds.length, label);
+    for (const etf of funds) assert.ok(group.includes(`${etf.ticker} factsheet`), `${label}: ${etf.ticker}`);
+  }
 });
 
 test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snapshot", async () => {
