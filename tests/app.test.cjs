@@ -7,6 +7,7 @@ const { test } = require("node:test");
 const root = path.resolve(__dirname, "..");
 const etfs = JSON.parse(fs.readFileSync(path.join(root, "data", "etfs.json"), "utf8"));
 const marketData = JSON.parse(fs.readFileSync(path.join(root, "data", "market-data.json"), "utf8"));
+const performanceData = JSON.parse(fs.readFileSync(path.join(root, "data", "performance.json"), "utf8"));
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const script = fs.readFileSync(path.join(root, "app.js"), "utf8");
 const byTicker = (ticker) => etfs.find((etf) => etf.ticker === ticker);
@@ -36,7 +37,9 @@ const createApp = async () => {
     console: { error: (...args) => errors.push(args) },
     fetch: async (url) => ({
       ok: true,
-      json: async () => structuredClone(url.includes("etfs.json") ? etfs : marketData),
+      json: async () => structuredClone(
+        url.includes("etfs.json") ? etfs : url.includes("performance.json") ? performanceData : marketData,
+      ),
     }),
   });
   vm.runInContext(script.replace(/load\(\);\s*$/, "globalThis.ready = load();"), context);
@@ -46,15 +49,15 @@ const createApp = async () => {
   return { document, api: context.api };
 };
 
-test("all 46 listing records have official factsheet provenance and verified core fields", () => {
-  assert.equal(etfs.length, 46);
-  assert.equal(new Set(etfs.map((etf) => etf.ticker)).size, 46);
+test("the original 46 listing records have official factsheet provenance and verified core fields", () => {
+  assert.equal(etfs.length, 49);
+  assert.equal(new Set(etfs.map((etf) => etf.ticker)).size, 49);
   const hosts = new Set([
     "fund-docs.vanguard.com", "www.ishares.com", "www.ssga.com", "etf.dws.com",
     "www.invesco.com", "www.amundietf.com", "www.amundietf.co.uk",
-    "res.avantisinvestors.com", "docfinder.bnpparibas-am.com", "jp.techrules.com",
+    "res.avantisinvestors.com", "www.avantisinvestors.com", "docfinder.bnpparibas-am.com", "jp.techrules.com",
   ]);
-  for (const etf of etfs) {
+  for (const etf of etfs.slice(0, 46)) {
     assert.match(etf.isin, /^[A-Z]{2}[A-Z0-9]{10}$/, etf.ticker);
     assert.equal(etf.verifiedAt, "2026-10-21", etf.ticker);
     assert.equal(etf.sourceUrl, etf.factsheetUrl, etf.ticker);
@@ -72,6 +75,36 @@ test("all 46 listing records have official factsheet provenance and verified cor
       assert.ok(etf.trackingErrorPeriod, etf.ticker);
     }
   }
+});
+
+test("the requested Avantis and iShares funds are present with explicit unverified data", () => {
+  for (const ticker of ["AVEM.L", "AVGC", "DTLA"]) {
+    const etf = byTicker(ticker);
+    assert.ok(etf, ticker);
+    assert.match(etf.isin, /^[A-Z]{2}[A-Z0-9]{10}$/, ticker);
+    assert.ok(etf.factsheetUrl && etf.sourceUrl, ticker);
+    assert.ok(etf.verifiedAt, ticker);
+    assert.equal(etf.aumReportedM, null, ticker);
+    assert.equal(etf.aumNote, "官方資料中的資產規模尚待核實", ticker);
+  }
+  assert.equal(byTicker("AVEM.L").isin, "IE000K975W13");
+  assert.equal(byTicker("AVGC").isin, "IE000RJECXS5");
+  assert.equal(byTicker("DTLA").isin, "IE00BFM6TC58");
+});
+
+test("annualized returns have a dated Yahoo source for every listed fund", () => {
+  assert.equal(Object.keys(performanceData.returns).length, etfs.length);
+  for (const etf of etfs) {
+    const result = performanceData.returns[etf.ticker];
+    assert.ok(result, etf.ticker);
+    assert.ok(result.symbol, etf.ticker);
+    for (const field of ["oneYear", "threeYear", "fiveYear"]) {
+      assert.ok(result[field] === null || Number.isFinite(result[field]), `${etf.ticker}: ${field}`);
+    }
+  }
+  assert.equal(performanceData.returns["AVEM.L"].threeYear, null);
+  assert.equal(performanceData.returns.AVGC.oneYear, 19.6);
+  assert.equal(performanceData.returns.DTLA.fiveYear, -7.52);
 });
 
 test("missing disclosures and the older LVWC factsheet remain explicit", () => {
@@ -111,16 +144,16 @@ test("average duration is never stored as effective duration", () => {
 test("rendering preserves income, quotes, source links and the older-source warning", async () => {
   const { document } = await createApp();
   const rows = document.querySelector("#etf-rows").innerHTML;
-  assert.equal((rows.match(/<tr>/g) || []).length, 46);
-  assert.equal((rows.match(/官方 factsheet/g) || []).length, 46);
-  assert.equal((rows.match(/>累積型</g) || []).length, 44);
+  assert.equal((rows.match(/<tr>/g) || []).length, 49);
+  assert.equal((rows.match(/官方 factsheet/g) || []).length, 48);
+  assert.equal((rows.match(/>累積型</g) || []).length, 47);
   assert.equal((rows.match(/>派息型</g) || []).length, 2);
   assert.match(rows, /quote-values/);
   assert.match(rows, /verification-warning/);
   assert.match(rows, /2025-11-30/);
   assert.equal(document.querySelector("#data-date").textContent, "2026-10-21");
   const sourceLinks = document.querySelector("#source-links").innerHTML;
-  assert.equal((sourceLinks.match(/<a /g) || []).length, 46);
+  assert.equal((sourceLinks.match(/<a /g) || []).length, 49);
   assert.deepEqual(
     [...sourceLinks.matchAll(/<section class="source-group"><h3>([^<]+)<\/h3>/g)].map((match) => match[1]),
     ["市值加權", "因子", "債券"],
@@ -135,7 +168,9 @@ test("rendering preserves income, quotes, source links and the older-source warn
     const groupEnd = sourceLinks.indexOf("</section>", groupStart);
     const group = sourceLinks.slice(groupStart, groupEnd);
     assert.equal((group.match(/<a /g) || []).length, funds.length, label);
-    for (const etf of funds) assert.ok(group.includes(`${etf.ticker} factsheet`), `${label}: ${etf.ticker}`);
+    for (const etf of funds) {
+      assert.ok(group.includes(`${etf.ticker} ${etf.factsheetLabel || "factsheet"}`), `${label}: ${etf.ticker}`);
+    }
   }
 });
 
@@ -153,16 +188,18 @@ test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snap
   assert.match(document.querySelector("#etf-rows").innerHTML, /等待 FX 換算/);
 });
 
-test("comparison table has 13 aligned columns and no personal rating column", async () => {
+test("comparison table has 14 aligned columns and no personal rating column", async () => {
   const { document } = await createApp();
   const header = html.match(/<thead>[\s\S]*?<\/thead>/)[0];
-  assert.equal((header.match(/<th scope="col">/g) || []).length, 13);
+  assert.equal((header.match(/<th scope="col">/g) || []).length, 14);
   assert.doesNotMatch(html, /我的評分|個人評分/);
   const rows = document.querySelector("#etf-rows").innerHTML;
   for (const row of rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)) {
-    assert.equal((row[1].match(/<td(?:\s|>)/g) || []).length, 13);
+    assert.equal((row[1].match(/<td(?:\s|>)/g) || []).length, 14);
   }
   assert.doesNotMatch(rows, /rating|待評分|個人評分/);
+  assert.match(rows, /1年 <strong>19\.60%<\/strong>/);
+  assert.match(rows, /Yahoo Finance/);
 });
 
 test("date column displays share-class inception instead of listing date", async () => {
@@ -220,7 +257,7 @@ test("filters, search, empty state and reset still work", async () => {
   const category = document.querySelector("#category-filter");
   category.value = "bond";
   category.handlers.change();
-  assert.equal((document.querySelector("#etf-rows").innerHTML.match(/<tr>/g) || []).length, 12);
+  assert.equal((document.querySelector("#etf-rows").innerHTML.match(/<tr>/g) || []).length, 13);
   const search = document.querySelector("#search");
   search.value = "NOT_A_REAL_TICKER";
   search.handlers.input();
@@ -228,7 +265,7 @@ test("filters, search, empty state and reset still work", async () => {
   document.querySelector("#reset-filters").handlers.click();
   assert.equal(category.value, "all");
   assert.equal(search.value, "");
-  assert.equal((document.querySelector("#etf-rows").innerHTML.match(/<tr>/g) || []).length, 46);
+  assert.equal((document.querySelector("#etf-rows").innerHTML.match(/<tr>/g) || []).length, 49);
 });
 
 test("IB search aliases are displayed and searchable without replacing primary tickers or quotes", async () => {

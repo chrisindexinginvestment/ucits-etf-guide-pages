@@ -1,5 +1,6 @@
 const ETFS_URL = "./data/etfs.json";
 const QUOTES_URL = "./data/market-data.json";
+const PERFORMANCE_URL = "./data/performance.json";
 const LOW_LIQUIDITY_THRESHOLD_USD = 10_000;
 
 const rowsElement = document.querySelector("#etf-rows");
@@ -103,7 +104,7 @@ const quoteMarkup = (quote, fallbackUpdatedAt) => {
   return `<span class="quote-values"><span>B ${bid}</span><span>A ${ask}</span></span>${spread}${liquidity}${quoteDate}`;
 };
 
-const renderRows = (etfs, marketData) => {
+const renderRows = (etfs, marketData, performanceData = {}) => {
   const query = searchElement.value.trim().toLocaleLowerCase();
   const quotes = marketData.quotes || {};
   const fxRates = marketData.fxRates || {};
@@ -164,12 +165,26 @@ const renderRows = (etfs, marketData) => {
     const terCheck = etf.ter !== null && etf.ter !== undefined && etf.ter < 0.2
       ? criterionCheck("TER 低於 0.20%")
       : "";
+    const performance = performanceData.returns?.[etf.ticker];
+    const performanceValues = [
+      ["1年", performance?.oneYear],
+      ["3年", performance?.threeYear],
+      ["5年", performance?.fiveYear],
+    ].map(([label, value]) =>
+      `<span>${label} <strong>${Number.isFinite(value) ? `${value.toFixed(2)}%` : "—"}</strong></span>`,
+    ).join("");
+    const performanceDate = performance?.asOf
+      ? `截至 ${formatDate(performance.asOf)}`
+      : performance?.note || "未有可用歷史價格";
+    const performanceSource = performance
+      ? `<a class="data-sub" href="https://finance.yahoo.com/quote/${encodeURIComponent(performance.symbol)}/history/" target="_blank" rel="noreferrer">${performanceData.source || "歷史價格"} · ${performanceDate} ↗</a>`
+      : `<span class="data-sub">未有資料</span>`;
 
     return `<tr>
       <td class="fund-cell">
         <div class="fund-name">
           <span class="ticker-badge">${etf.ticker}</span>
-          <span><strong>${fundName}</strong>${ibSearchTickers}<span class="fund-meta">${etf.index}</span><a class="fund-meta" href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">官方 factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>${etf.verificationNote ? `<span class="fund-meta verification-warning">${etf.verificationNote}</span>` : ""}</span>
+          <span><strong>${fundName}</strong>${ibSearchTickers}<span class="fund-meta">${etf.index}</span><a class="fund-meta" href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.factsheetLabel || "官方 factsheet"} · ${etf.factsheetAsOf || "日期待核實"} ↗</a>${etf.verificationNote ? `<span class="fund-meta verification-warning">${etf.verificationNote}</span>` : ""}</span>
         </div>
       </td>
       <td>${incomeTreatment}</td>
@@ -183,6 +198,7 @@ const renderRows = (etfs, marketData) => {
       <td class="factor-cell">${factorMarkup(etf)}</td>
       <td class="cost-cell"><span class="data-main">${displayValue(ter, "待核實")}${terCheck}</span><span class="data-sub">${etf.terLabel || "TER"}${etf.terAsOf ? ` · ${etf.terAsOf}` : ""}</span></td>
       <td class="date-cell"><span class="data-main">${displayValue(inception, "待核實")}</span>${etf.inceptionDateLabel ? `<span class="data-sub">${etf.inceptionDateLabel}</span>` : ""}</td>
+      <td class="returns-cell"><div class="return-values">${performanceValues}</div>${performanceSource}</td>
       <td class="tracking-cell"><span class="data-main">${displayValue(trackingError, etf.trackingErrorNote ? "未提供可核實百分比" : "待核實")}</span>${etf.trackingErrorNote ? `<span class="data-sub">${etf.trackingErrorNote}</span>` : ""}</td>
     </tr>`;
   }).join("");
@@ -199,7 +215,7 @@ const renderSources = (etfs) => {
   ];
   sourceLinksElement.innerHTML = groups.map(({ label, funds }) =>
     `<section class="source-group"><h3>${label}</h3><div class="source-group-links">${funds.map((etf) =>
-      `<a href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} factsheet · ${etf.factsheetAsOf || "日期待核實"} ↗</a>`,
+      `<a href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.ticker} ${etf.factsheetLabel || "factsheet"} · ${etf.factsheetAsOf || "日期待核實"} ↗</a>`,
     ).join("")}</div></section>`,
   ).join("");
 };
@@ -238,22 +254,28 @@ const renderQuoteStatus = (marketData) => {
 
 const load = async () => {
   try {
-    const [etfsResponse, quotesResponse] = await Promise.all([
+    const [etfsResponse, quotesResponse, performanceResponse] = await Promise.all([
       fetch(ETFS_URL, { cache: "no-store" }),
       fetch(QUOTES_URL, { cache: "no-store" }),
+      fetch(PERFORMANCE_URL, { cache: "no-store" }),
     ]);
     if (!etfsResponse.ok) throw new Error(`ETF 資料載入失敗：HTTP ${etfsResponse.status}`);
     if (!quotesResponse.ok) throw new Error(`IB 報價檔載入失敗：HTTP ${quotesResponse.status}`);
-    const [etfs, marketData] = await Promise.all([etfsResponse.json(), quotesResponse.json()]);
-    const tickerOrder = ["VALL", "VWRA", "FWRA", "ISAC", "IMID", "ACWD", "SWRD", "SWDA", "LVWC", "VWRD", "IWDA", "EIMI", "SPYL", "CSPX", "VUAA", "MXUS", "SPXS", "EXUS", "XUSE", "WEXU", "ESAN", "AVGS", "ZPRX", "ZPRV", "MVOL", "JPGL", "IWMO", "XDEM", "WMSE", "IFSW", "WSML", "EMVL", "LEMA", "IWVL", "CBU0", "CBU3", "CBU7", "AGGU", "AGGG", "AGAC", "IGLA", "VAGU", "VDTA", "VDST", "IB01", "BB3M"];
+    if (!performanceResponse.ok) throw new Error(`基金回報資料載入失敗：HTTP ${performanceResponse.status}`);
+    const [etfs, marketData, performanceData] = await Promise.all([
+      etfsResponse.json(),
+      quotesResponse.json(),
+      performanceResponse.json(),
+    ]);
+    const tickerOrder = ["VALL", "VWRA", "FWRA", "ISAC", "IMID", "ACWD", "SWRD", "SWDA", "LVWC", "VWRD", "IWDA", "EIMI", "SPYL", "CSPX", "VUAA", "MXUS", "SPXS", "EXUS", "XUSE", "WEXU", "ESAN", "AVGS", "AVEM.L", "AVGC", "ZPRX", "ZPRV", "MVOL", "JPGL", "IWMO", "XDEM", "WMSE", "IFSW", "WSML", "EMVL", "LEMA", "IWVL", "CBU0", "CBU3", "CBU7", "AGGU", "AGGG", "AGAC", "IGLA", "VAGU", "VDTA", "VDST", "DTLA", "IB01", "BB3M"];
     const orderIndex = new Map(tickerOrder.map((ticker, index) => [ticker, index]));
     etfs.sort((left, right) => (orderIndex.get(left.ticker) ?? Number.MAX_SAFE_INTEGER) - (orderIndex.get(right.ticker) ?? Number.MAX_SAFE_INTEGER));
     const researchDate = etfs[0]?.dataAsOf;
     dataDateElement.textContent = researchDate || "待更新";
-    renderRows(etfs, marketData);
+    renderRows(etfs, marketData, performanceData);
     renderSources(etfs);
     renderQuoteStatus(marketData);
-    const rerender = () => renderRows(etfs, marketData);
+    const rerender = () => renderRows(etfs, marketData, performanceData);
     searchElement.addEventListener("input", rerender);
     for (const filter of [categoryFilter, marketFilter, replicationFilter, factorFilter]) {
       filter.addEventListener("change", rerender);

@@ -180,7 +180,7 @@ h2 { margin-bottom: 0; font-size: clamp(30px, 3.6vw, 46px); font-weight: 500; le
 .filter-reset:hover { border-color: #90a77b; color: #355245; }
 .filter-count { padding-bottom: 10px; color: var(--muted); font-size: 12px; text-align: right; white-space: nowrap; }
 .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
-table { width: 100%; min-width: 1900px; border-collapse: separate; border-spacing: 0; text-align: left; }
+table { width: 100%; min-width: 2040px; border-collapse: separate; border-spacing: 0; text-align: left; }
 thead { background: #eff3ed; }
 th { padding: 13px 12px; color: #68766c; font-size: 11px; font-weight: 600; white-space: nowrap; }
 thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid var(--line); background: #eff3ed; }
@@ -200,6 +200,9 @@ tbody tr:hover .fund-cell { background: #fbfcfa; }
 .market-main { display: block; min-width: 170px; max-width: 205px; color: #58665d; font-size: 12px; line-height: 1.55; }
 .factor-cell { min-width: 200px; }
 .duration-cell { min-width: 145px; }
+.returns-cell { min-width: 220px; }
+.return-values { display: grid; grid-template-columns: repeat(3, max-content); gap: 7px; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.return-values strong { font-weight: 600; }
 .factor-pill { display: inline-block; margin: 0 4px 4px 0; padding: 4px 6px; border-radius: 2px; background: #eff3ed; color: #56664f; font-size: 11px; white-space: nowrap; }
 .factor-cell .data-sub { white-space: normal; }
 .aum-cell, .cost-cell, .date-cell, .tracking-cell { min-width: 160px; max-width: 230px; }
