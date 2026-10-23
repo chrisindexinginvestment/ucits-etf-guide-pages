@@ -9,6 +9,7 @@ Repository 設定為由 `main` branch 的根目錄發佈。網站可公開瀏覽
 ## 資料說明
 
 - `data/etfs.json` 原有 46 個上市代號已於 2026-10-21 逐項對照官方 factsheet，另加入 AVEM.L、AVGC 及 DTLA。`factsheetUrl` / `sourceUrl` 為文件連結，`factsheetAsOf` 為文件日期，`verifiedAt` / `dataAsOf` 為本次核對日期，並不表示所有數據截至同一天。多數原有文件截至 2026-09-30；LVWC 官網連結仍提供 2025-11-30 文件（AUM 截至 2025-11-28），`verificationNote` 明確標示未能確認更新版本。新增基金尚未核實的資產規模或文件日期會留空並註明。
+- 比較表的 ISIN 欄逐列顯示 `data/etfs.json` 中該上市代號的 ISIN，方便核對基金識別；ISIN 與 ticker 是不同欄位。
 - 資產規模使用 `aumReportedM`（百萬原幣）、`aumReportedCurrency`、`aumAsOf` 及 `aumScope`。優先採用整隻基金資產（`fund`）；Amundi 文件只列 AUM，使用 `factsheet-aum` 而不推斷份額類別範圍。文件只給四捨五入數值時，`aumNote` 保留原始精度說明。相同基金的不同份額類別或上市代號可有相同基金規模，不可相加當作獨立資產。
 - `incomeTreatment` 只使用已核對的收益處理，不從基金名稱猜測。`ter` 保留原百分比數值（例如 `0.20` 代表 `0.20%`），`terLabel` 及 `terAsOf` 保留官方費用名稱和日期；TER、OCF、All-in fee、經常性費用並非所有成本的總和。
 - 表格日期欄名為「份額類別成立日期」，顯示 `inceptionDate` 的官方成立／launch date，並以 `inceptionDateLabel` 註明口徑。`listingDate` / `listingDateNote` 保留作來源紀錄，不再用於表格日期欄。AVGS 顯示 2024-09-25 成立日期，而非其 LSE USD 上市日期 2024-12-04。

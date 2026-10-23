@@ -187,6 +187,7 @@ const renderRows = (etfs, marketData, performanceData = {}) => {
           <span><strong>${fundName}</strong>${ibSearchTickers}<span class="fund-meta">${etf.index}</span><a class="fund-meta" href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.factsheetLabel || "官方 factsheet"} · ${etf.factsheetAsOf || "日期待核實"} ↗</a>${etf.verificationNote ? `<span class="fund-meta verification-warning">${etf.verificationNote}</span>` : ""}</span>
         </div>
       </td>
+      <td class="isin-cell"><span class="data-main">${displayValue(etf.isin, "待核實")}</span></td>
       <td>${incomeTreatment}</td>
       <td class="aum-cell"><span class="data-main">${displayValue(aum, etf.aumReportedM === null ? "待核實" : "等待 FX 換算")}${aumCheck}</span>${aum ? `<span class="data-sub">${aumScope} · 截至 ${etf.aumAsOf || "日期待核實"}</span>` : ""}${etf.aumNote ? `<span class="data-sub">${etf.aumNote}</span>` : ""}</td>
       <td>${quoteMarkup(quote, marketData.updatedAt)}</td>

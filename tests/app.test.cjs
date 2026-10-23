@@ -151,6 +151,11 @@ test("rendering preserves income, quotes, source links and the older-source warn
   assert.match(rows, /quote-values/);
   assert.match(rows, /verification-warning/);
   assert.match(rows, /2025-11-30/);
+  const renderedRows = [...rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)];
+  for (const [, row] of renderedRows) {
+    const ticker = row.match(/<span class="ticker-badge">([^<]+)<\/span>/)[1];
+    assert.match(row, new RegExp(`<td class="isin-cell"><span class="data-main">${byTicker(ticker).isin}</span></td>`), ticker);
+  }
   assert.equal(document.querySelector("#data-date").textContent, "2026-10-21");
   const sourceLinks = document.querySelector("#source-links").innerHTML;
   assert.equal((sourceLinks.match(/<a /g) || []).length, 49);
@@ -188,14 +193,15 @@ test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snap
   assert.match(document.querySelector("#etf-rows").innerHTML, /等待 FX 換算/);
 });
 
-test("comparison table has 14 aligned columns and no personal rating column", async () => {
+test("comparison table has 15 aligned columns including ISIN and no personal rating column", async () => {
   const { document } = await createApp();
   const header = html.match(/<thead>[\s\S]*?<\/thead>/)[0];
-  assert.equal((header.match(/<th scope="col">/g) || []).length, 14);
+  assert.equal((header.match(/<th scope="col">/g) || []).length, 15);
+  assert.match(header, /<th scope="col">ISIN<\/th>/);
   assert.doesNotMatch(html, /我的評分|個人評分/);
   const rows = document.querySelector("#etf-rows").innerHTML;
   for (const row of rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)) {
-    assert.equal((row[1].match(/<td(?:\s|>)/g) || []).length, 14);
+    assert.equal((row[1].match(/<td(?:\s|>)/g) || []).length, 15);
   }
   assert.doesNotMatch(rows, /rating|待評分|個人評分/);
   assert.match(rows, /1年 <strong>19\.60%<\/strong>/);
