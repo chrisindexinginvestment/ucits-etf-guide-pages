@@ -187,7 +187,7 @@ test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snap
   assert.doesNotMatch(rows, /按 EUR\/USD/);
   api.renderRows([byTicker("ZPRX")], marketData);
   rows = document.querySelector("#etf-rows").innerHTML;
-  assert.match(rows, /按 EUR\/USD 1\.1226 換算/);
+  assert.ok(rows.includes(`按 EUR/USD ${marketData.fxRates.EURUSD.mid.toFixed(4)} 換算`));
   assert.match(rows, /\$0\.94bn/);
   api.renderRows([byTicker("ZPRX")], { quotes: {}, fxRates: {} });
   assert.match(document.querySelector("#etf-rows").innerHTML, /等待 FX 換算/);

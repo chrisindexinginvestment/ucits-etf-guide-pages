@@ -1847,6 +1847,7 @@
   },
   {
     "ticker": "AVEM.L",
+    "ibTicker": "AVEM",
     "isin": "IE000K975W13",
     "name": "Avantis Emerging Markets Equity UCITS ETF USD Acc",
     "issuer": "Avantis",
