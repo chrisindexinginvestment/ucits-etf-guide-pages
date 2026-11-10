@@ -1,7 +1,7 @@
 [
   {
-    "ticker": "VALL",
-    "displayTicker": "VALU",
+    "ticker": "VALU",
+    "ibTicker": "VALL",
     "isin": "IE000VAHT5T0",
     "name": "Vanguard FTSE Global All-Cap UCITS ETF USD Acc",
     "issuer": "Vanguard",

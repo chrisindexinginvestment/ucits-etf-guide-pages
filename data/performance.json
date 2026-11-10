@@ -2,7 +2,7 @@
   "source": "Yahoo Finance",
   "method": "Annualized geometric return calculated from adjusted close. Uses the latest available close and the latest observation on or before the 1-, 3-, or 5-year lookback date.",
   "returns": {
-    "VALL": { "symbol": "VALL.L", "asOf": "2026-10-21", "oneYear": null, "threeYear": null, "fiveYear": null },
+    "VALU": { "symbol": "VALL.L", "asOf": "2026-10-21", "oneYear": null, "threeYear": null, "fiveYear": null },
     "VWRA": { "symbol": "VWRA.L", "asOf": "2026-10-21", "oneYear": 15.73, "threeYear": 22.62, "fiveYear": 10.71 },
     "IMID": { "symbol": "IMID.L", "asOf": "2026-10-21", "oneYear": 16.13, "threeYear": 22.30, "fiveYear": 10.37 },
     "ACWD": { "symbol": "ACWD.L", "asOf": "2026-10-21", "oneYear": 15.82, "threeYear": 22.87, "fiveYear": 10.76 },

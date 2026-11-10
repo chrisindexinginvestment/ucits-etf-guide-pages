@@ -268,7 +268,7 @@ const load = async () => {
       quotesResponse.json(),
       performanceResponse.json(),
     ]);
-    const tickerOrder = ["VALL", "VWRA", "FWRA", "ISAC", "IMID", "ACWD", "SWRD", "SWDA", "LVWC", "VWRD", "IWDA", "EIMI", "SPYL", "CSPX", "VUAA", "MXUS", "SPXS", "EXUS", "XUSE", "WEXU", "ESAN", "AVGS", "AVEM.L", "AVGC", "ZPRX", "ZPRV", "MVOL", "JPGL", "IWMO", "XDEM", "WMSE", "IFSW", "WSML", "EMVL", "LEMA", "IWVL", "CBU0", "CBU3", "CBU7", "AGGU", "AGGG", "AGAC", "IGLA", "VAGU", "VDTA", "VDST", "DTLA", "IB01", "BB3M"];
+    const tickerOrder = ["VALU", "VWRA", "FWRA", "ISAC", "IMID", "ACWD", "SWRD", "SWDA", "LVWC", "VWRD", "IWDA", "EIMI", "SPYL", "CSPX", "VUAA", "MXUS", "SPXS", "EXUS", "XUSE", "WEXU", "ESAN", "AVGS", "AVEM.L", "AVGC", "ZPRX", "ZPRV", "MVOL", "JPGL", "IWMO", "XDEM", "WMSE", "IFSW", "WSML", "EMVL", "LEMA", "IWVL", "CBU0", "CBU3", "CBU7", "AGGU", "AGGG", "AGAC", "IGLA", "VAGU", "VDTA", "VDST", "DTLA", "IB01", "BB3M"];
     const orderIndex = new Map(tickerOrder.map((ticker, index) => [ticker, index]));
     etfs.sort((left, right) => (orderIndex.get(left.ticker) ?? Number.MAX_SAFE_INTEGER) - (orderIndex.get(right.ticker) ?? Number.MAX_SAFE_INTEGER));
     const researchDate = etfs[0]?.dataAsOf;

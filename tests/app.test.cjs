@@ -154,7 +154,7 @@ test("rendering preserves income, quotes, source links and the older-source warn
   const renderedRows = [...rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)];
   for (const [, row] of renderedRows) {
     const ticker = row.match(/<span class="ticker-badge">([^<]+)<\/span>/)[1];
-    const etf = etfs.find((item) => (item.displayTicker || item.ticker) === ticker);
+    const etf = etfs.find((item) => item.ticker === ticker);
     assert.match(row, new RegExp(`<td class="isin-cell"><span class="data-main">${etf.isin}</span></td>`), ticker);
   }
   assert.equal(document.querySelector("#data-date").textContent, "2026-10-21");
@@ -180,15 +180,18 @@ test("rendering preserves income, quotes, source links and the older-source warn
   }
 });
 
-test("VALL keeps its data ticker while the list displays and searches VALU", async () => {
+test("VALU is the website ticker and maps quotes through the VALL IB contract", async () => {
   const { document, api } = await createApp();
-  const etf = byTicker("VALL");
-  assert.equal(etf.displayTicker, "VALU");
+  const etf = byTicker("VALU");
+  assert.ok(etf);
+  assert.equal(etf.ibTicker, "VALL");
+  assert.equal(byTicker("VALL"), undefined);
+  assert.equal(marketData.quotes.VALU.ibSymbol, "VALL");
+  assert.ok(performanceData.returns.VALU);
   api.renderRows([etf], marketData, performanceData);
   let row = document.querySelector("#etf-rows").innerHTML;
   assert.match(row, /class="ticker-badge">VALU<\/span>/);
   assert.match(row, /class="quote-values"/);
-  assert.doesNotMatch(row, /class="ticker-badge">VALL<\/span>/);
 
   document.querySelector("#search").value = "VALU";
   api.renderRows(etfs, marketData, performanceData);
@@ -264,7 +267,7 @@ test("bond duration uses starred averages only when effective duration is unavai
     assert.match(rows, /class="duration-cell"><span class="pending">待核實/);
     assert.doesNotMatch(rows, />\*<\/span>/);
   }
-  api.renderRows([{ ...byTicker("VALL"), reportedDurationYears: 9, reportedDurationLabel: "Average duration" }], marketData);
+  api.renderRows([{ ...byTicker("VALU"), reportedDurationYears: 9, reportedDurationLabel: "Average duration" }], marketData);
   assert.match(document.querySelector("#etf-rows").innerHTML, /class="duration-cell"><span class="pending">—<\/span>/);
   assert.match(html, /\* 債券 ETF 未披露有效存續期時/);
 });

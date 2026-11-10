@@ -19,7 +19,7 @@ Repository 設定為由 `main` branch 的根目錄發佈。網站可公開瀏覽
 - ETF 清單新增 AVEM.L、AVGC 及 DTLA。現時未核實的基金規模、factsheet 日期或報價會明確留空／標示待核實；新增基金不會沿用其他代號的 IB 報價。
 - `ibSearchTickers` 記錄用於 IB 搜尋的別名：CBU0 → CSBGU0、CBU3 → CSBGU3、CBU7 → CSBGU7。別名顯示於基金名稱下方，亦可用於網站搜尋；主要上市代號及報價快照對應仍使用 CBU0／CBU3／CBU7，不新增基金或更新 IB 報價。
 - 債券 ETF 顯示優先使用 `effectiveDurationYears` 及 `durationAsOf`；未有有效存續期時，以明確標為 Average duration 的 `reportedDurationYears` 及 `reportedDurationAsOf` 顯示，數字加 `*` 並註明「平均存續期」。目前 VAGU、VDTA、VDST 和 BB3M 使用此顯示方式；原始平均存續期仍獨立儲存，不填入有效存續期欄位。兩者皆無數值時顯示待核實；指數到期範圍只作補充。iShares 文件註明其他資料截至 2026-10-05，故費用及有效存續期日期與月末 AUM 日期不同。
-- 比較表下方設有兩個教育用途的配置範例：VALL / CBU0 為 80 / 20；VALL / AVGS / CBU0 為 60 / 20 / 20。後者的股票部分為 75% 市值加權及 25% small-cap value tilt，分母為股票佔組合的 80%，不是整體組合；不涉及回測或回報保證。
+- 比較表下方設有兩個教育用途的配置範例：VALU / CBU0 為 80 / 20；VALU / AVGS / CBU0 為 60 / 20 / 20。後者的股票部分為 75% 市值加權及 25% small-cap value tilt，分母為股票佔組合的 80%，不是整體組合；不涉及回測或回報保證。
 
 基金資料與報價只供教育及研究用途，不構成投資建議。
 
