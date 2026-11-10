@@ -109,7 +109,7 @@ const renderRows = (etfs, marketData, performanceData = {}) => {
   const quotes = marketData.quotes || {};
   const fxRates = marketData.fxRates || {};
   const visibleEtfs = etfs.filter((etf) =>
-    `${etf.ticker} ${(etf.ibSearchTickers || []).join(" ")} ${etf.name} ${etf.index} ${etf.issuer} ${etf.marketScope} ${etf.weighting} ${etf.factorTags || []}`.toLocaleLowerCase().includes(query)
+    `${etf.ticker} ${etf.displayTicker || ""} ${(etf.ibSearchTickers || []).join(" ")} ${etf.name} ${etf.index} ${etf.issuer} ${etf.marketScope} ${etf.weighting} ${etf.factorTags || []}`.toLocaleLowerCase().includes(query)
       && (categoryFilter.value === "all" || etf.category === categoryFilter.value)
       && (marketFilter.value === "all" || (etf.marketTags || []).includes(marketFilter.value))
       && (replicationFilter.value === "all" || etf.replicationType === replicationFilter.value)
@@ -183,7 +183,7 @@ const renderRows = (etfs, marketData, performanceData = {}) => {
     return `<tr>
       <td class="fund-cell">
         <div class="fund-name">
-          <span class="ticker-badge">${etf.ticker}</span>
+          <span class="ticker-badge">${etf.displayTicker || etf.ticker}</span>
           <span><strong>${fundName}</strong>${ibSearchTickers}<span class="fund-meta">${etf.index}</span><a class="fund-meta" href="${etf.factsheetUrl || etf.sourceUrl}" target="_blank" rel="noreferrer">${etf.factsheetLabel || "官方 factsheet"} · ${etf.factsheetAsOf || "日期待核實"} ↗</a>${etf.verificationNote ? `<span class="fund-meta verification-warning">${etf.verificationNote}</span>` : ""}</span>
         </div>
       </td>

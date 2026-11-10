@@ -154,7 +154,8 @@ test("rendering preserves income, quotes, source links and the older-source warn
   const renderedRows = [...rows.matchAll(/<tr>([\s\S]*?)<\/tr>/g)];
   for (const [, row] of renderedRows) {
     const ticker = row.match(/<span class="ticker-badge">([^<]+)<\/span>/)[1];
-    assert.match(row, new RegExp(`<td class="isin-cell"><span class="data-main">${byTicker(ticker).isin}</span></td>`), ticker);
+    const etf = etfs.find((item) => (item.displayTicker || item.ticker) === ticker);
+    assert.match(row, new RegExp(`<td class="isin-cell"><span class="data-main">${etf.isin}</span></td>`), ticker);
   }
   assert.equal(document.querySelector("#data-date").textContent, "2026-10-21");
   const sourceLinks = document.querySelector("#source-links").innerHTML;
@@ -177,6 +178,22 @@ test("rendering preserves income, quotes, source links and the older-source warn
       assert.ok(group.includes(`${etf.ticker} ${etf.factsheetLabel || "factsheet"}`), `${label}: ${etf.ticker}`);
     }
   }
+});
+
+test("VALL keeps its data ticker while the list displays and searches VALU", async () => {
+  const { document, api } = await createApp();
+  const etf = byTicker("VALL");
+  assert.equal(etf.displayTicker, "VALU");
+  api.renderRows([etf], marketData, performanceData);
+  let row = document.querySelector("#etf-rows").innerHTML;
+  assert.match(row, /class="ticker-badge">VALU<\/span>/);
+  assert.match(row, /class="quote-values"/);
+  assert.doesNotMatch(row, /class="ticker-badge">VALL<\/span>/);
+
+  document.querySelector("#search").value = "VALU";
+  api.renderRows(etfs, marketData, performanceData);
+  row = document.querySelector("#etf-rows").innerHTML;
+  assert.match(row, /class="ticker-badge">VALU<\/span>/);
 });
 
 test("USD AUM is not labelled as EUR conversion; EUR AUM uses the actual FX snapshot", async () => {
